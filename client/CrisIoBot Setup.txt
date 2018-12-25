@@ -1,0 +1,63 @@
+::Getting started
+Creating environment variables
+--on Heroku create --> MONGODB_URI = mongodb://<crisbotdb>:<dbpassword>@dsxxxxxx.mlab.com:55087/crisbot
+Creating facebook page app--done
+
+
+::Structure
+Parse as Server
+Heroku as web hosting platform
+MongoDB mLab as Database
+GitHub as project repo
+
+[Additional DB]
+AWS
+Azure
+
+[Additional repo]
+Heroku Toolbelt
+Google Drive
+
+::API Keys & Secrets & Credentials
+
+:Parse
+[Parse_Server]  https://cris-io-bot.herokuapp.com/parse
+[CLIENT_KEY]    SlLBq4wYUIzMWzetKyHepLRoRbBSgUeiLTpszJFz
+[APP_ID]        HHohE4G1eqjyjCPTdp27Ni7vWfjVomiivSrN7mTK
+
+:Heroku
+[APP_ID]
+[MASTER_KEY]
+[SERVER_URL]    https://cris-io-bot.herokuapp.com/parse
+[PARSE_MOUNT]   /parse
+
+
+:MongoDB {mLab}
+[ID]            crisbot.chrisaugu
+[User]          chrisaugu
+[Database]      crisbot
+[MONGODB]       mongodb://<chatmeapp>:<chatm3>@dsxxxxxx.mlab.com:55087/chatmeapp
+
+:GitHub
+[Repo]          https://github.com/chrisaugu/CrisIoTheBot
+
+
+::Programming languages
+Node.js
+JavaScript
+HTML/5
+CSS/3
+Java
+Kotlin
+Ruby
+Ruby on Rails
+Python
+Php
+SQL/ite
+
+
+To connect using the mongo shell:
+mongo ds153682.mlab.com:53682/chatmedb -u <dbuser> -p <dbpassword>
+To connect using a driver via the standard MongoDB URI (what's this?):
+
+mongodb://<dbuser>:<dbpassword>@ds153682.mlab.com:53682/chatmedb

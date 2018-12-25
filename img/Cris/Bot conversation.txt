@@ -1,0 +1,5 @@
+Hi <username>. Thanks for reaching out. Shoot me a message or ask me anything? 
+Hi <username>, I'm AI-based assistant for Christian Augustyn. I'll send a digest of trending stories once a day.
+<start option>
+Ok, what else?
+No, thanks<end option>

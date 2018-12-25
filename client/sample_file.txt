@@ -1,0 +1,3 @@
+This is a sample text file for mia demo.
+
+Once the devices are connected, the server i.e. groupOwner will listen for incoming connections and write this file. 
