@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Graph</title>
+</head>
+<body onload="startGame()">
+	<div id="graphContainer">
+		<canvas id="canvas" width="400" height="350"></canvas>
+	</div>
+	<script type="text/javascript" src="/js/physics/graph.js"></script>
+	<script type="text/javascript" src="/js/physics/math-functions.js"></script>
+	<script type="text/javascript">
+function startGame() {
+    myGameArea.start();
+    var square = new component(45, 45, "red", 3, 4);
+}
+
+var myGameArea = {
+    canvas: document.getElementById("canvas"),
+    start: function() {
+        this.canvas.width = 400;
+        this.canvas.height = 350;
+        this.context = this.canvas.getContext("2d");
+        // document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+    }
+}
+
+function component(width, height, color, x, y) {
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y; 
+    ctx = myGameArea.context;
+    ctx.fillStyle = color;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+}
+
+function gradientCalc(){
+	var ctx = myGameArea.context;
+    ctx.fillStyle = "green";
+    // ctx.fillRect(33, 5, 90, 87);
+    // ctx.lineTo(99, 120);
+    ctx.moveTo(45, 45);
+    ctx.stroke();
+}
+
+function drawUsingArithmeticProgression(){
+    for (var i = 1000; i > 0; --i) {
+        ctx.lineTo(2*i + 20, 2*i + 20);
+        ctx.stroke();
+    }
+}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wild cat chasing Antellop</title>
+</head>
+<body>
+
+<canvas id="canvas" width="900" height="150" style="border: 1px solid;"></canvas>
+
+<script type="text/javascript">
+var WildCat;
+var Antellop;
+var Human;
+var Lion;
+var myCreatures = [];
+var lanes = [];
+
+window.onload = start;
+
+function start() {
+	WildCat = new Creature(10, 0, "red", "Wild cat");
+	Antellop = new Creature(5, 20, "blue", "Antellop");
+	Human = new Creature(2, 10, "green", "Human");
+	Lion = new Creature(22, 0, "purple", "Lion")
+	Area.start();
+};
+
+/**
+ * Area
+ * the landscape in which the creature race
+ */
+var Area = {
+	canvas: document.getElementById("canvas"),
+	start: function() {
+		this.frameNo = 0;
+		this.time = 0;
+		this.context = this.canvas.getContext('2d');
+		this.interval = setInterval(this.update, 60);
+	},
+	clear: function() {
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	},
+	finish: function() {
+		var startLine = this.x;
+		var finishLine = (this.canvas.width);
+	},
+	stop: function() {
+		clearInterval(this.interval);
+	},
+	update: function() {
+		if (WildCat.x >= Area.canvas.width) {
+			Area.stop();
+		}
+		if (WildCat.catches(Antellop) || Antellop.catches(WildCat)) {
+			Area.stop();
+		}
+
+		Area.frameNo += 1;
+
+		Area.everyinterval();
+		// Area.time = (Math.max(Antellop.x, WildCat.x) - Math.min(Antellop.x, WildCat.x)) / (Math.max(WildCat.speed,Antellop.speed) - Math.min(WildCat.speed, Antellop.speed));
+		time.innerHTML = Area.time + "s";
+
+		Area.clear();
+		WildCat.run();
+		Antellop.run();
+		Human.run();
+		// Lion.run();
+	},
+	everyinterval: function(){
+		if ((Area.frameNo / 8) % 1 == 0) {Area.time += 1};
+	}
+};
+
+/*
+ * Creature
+ * @param speed, the creature's top speed
+ * @param distance, the distance of creature away from the starting point
+ * @param color, the distinct color of the creature
+ * @param name, name of the creature
+ */
+var Creature = function(speed, distance, color, name) {
+	this.width = 30;
+	this.height = 20;
+	this.distance = distance;
+	this.speed = speed;
+	this.x = this.distance * 10;
+	this.y = 0;
+	this.update = function() {
+		var ctx = Area.context;
+		ctx.fillStyle = color;
+		ctx.fillRect(this.x, this.y, this.width, this.height);
+	};
+	this.run = function() {
+		this.x += this.speed;
+		component(color, name, this.x - 80, this.y+8);
+		component(color, "speed: "+this.speed+"m/s", this.x - 80, this.y+18);
+		this.update();
+	};
+	this.catches = function(otherobj) {
+		var myleft = this.x;
+		var myright = this.x + (this.width);
+		var otherleft = otherobj.x;
+		var otherright = otherobj.x + (otherobj.width);
+		var crash = true;
+		if ((myright < otherleft) || (myleft > otherright)) {
+			crash = false;
+		}
+		return crash;
+	};
+	this.lane = function(){
+		if (lanes.length == 0) {
+			lanes.push(2);
+			return 2;
+		} 
+		else if (lanes.length != 0 /*&& (x-5 <= y && y < x+5)*/) {
+			lanes.push(lanes[lanes.length-1]+24);
+			return lanes[lanes.length-1]+24;
+		}
+	};
+	this.y = this.lane();
+};
+
+var component = function(color, text, x, y) {
+	ctx = Area.context;
+	ctx.font = "12px Consolas";
+	ctx.fillStyle = color;
+	// ctx.fillRect(this.x, this.y, 60, 30);
+	ctx.fillText(text, x, y);
+}
+</script>
+<span id="time"></span>
+<!-- <button onclick="Area.start();">Resume</button> -->
+<!-- <button onclick="Area.stop();">Stop</button> -->
+</body>
+</html>

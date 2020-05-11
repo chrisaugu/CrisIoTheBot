@@ -4,8 +4,420 @@
 		"selected_items":
 		[
 			[
+				"proces",
+				"processText"
+			],
+			[
+				"api",
+				"apiAiClient"
+			],
+			[
+				"por",
+				"process"
+			],
+			[
+				"re",
+				"res"
+			],
+			[
+				"post",
+				"postback"
+			],
+			[
+				"sender",
+				"sender_psid"
+			],
+			[
+				"web",
+				"webhook_event"
+			],
+			[
+				"con",
+				"connection"
+			],
+			[
+				"a",
+				"auth"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"get",
+				"getData"
+			],
+			[
+				"par",
+				"parseXML"
+			],
+			[
+				"mul",
+				"multiplier"
+			],
+			[
+				"mu",
+				"multicand"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"ar",
+				"argument"
+			],
+			[
+				"cons",
+				"const"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"main",
+				"mainWindow"
+			],
+			[
+				"man",
+				"mainWindow"
+			],
+			[
+				"app",
+				"app"
+			],
+			[
+				"TXT",
+				"TXT_LOCAL_API_URL"
+			],
+			[
+				"txt",
+				"txtlocal_opts"
+			],
+			[
+				"mess",
+				"message"
+			],
+			[
+				"data",
+				"date_created"
+			],
+			[
+				"pho",
+				"phone"
+			],
+			[
+				"req",
+				"req"
+			],
+			[
+				"phon",
+				"PhoneTracker"
+			],
+			[
+				"Uni",
+				"uniqueId"
+			],
+			[
+				"in",
+				"input\tTag"
+			],
+			[
+				"spa",
+				"span12"
+			],
+			[
+				"sap",
+				"span"
+			],
+			[
+				"my",
+				"myCurrentLocation"
+			],
+			[
+				"Ava",
+				"Available_Devices"
+			],
+			[
+				"ava",
+				"Available_Ddevices"
+			],
+			[
+				"tr",
+				"try"
+			],
+			[
+				"Unk",
+				"UnknownHostException"
+			],
+			[
+				"thrwo",
+				"throws"
+			],
+			[
+				"cns",
+				"console"
+			],
+			[
+				"ap",
+				"api"
+			],
+			[
+				"w",
+				"w"
+			],
+			[
+				"st",
+				"StuckWanYah"
+			],
+			[
+				"di",
+				"div\tTag"
+			],
+			[
+				"Loca",
+				"locationId"
+			],
+			[
+				"Con",
+				"Coordinates"
+			],
+			[
+				"btn",
+				"btn-success"
+			],
+			[
+				"span",
+				"span6"
+			],
+			[
+				"rea",
+				"React"
+			],
+			[
+				"ac",
+				"action\tAttr"
+			],
+			[
+				"i",
+				"id\tAttr"
+			],
+			[
+				"bt",
+				"btn-success"
+			],
+			[
+				"OPE",
+				"OPENWEATHER_API_URL"
+			],
+			[
+				"OP",
+				"OPENWEATHER_API_URL"
+			],
+			[
+				"loca",
+				"locationId"
+			],
+			[
+				"OPEN",
+				"OPENWEATHER_API_KEY"
+			],
+			[
+				"loc",
+				"locationId"
+			],
+			[
 				"err",
-				"error"
+				"err"
+			],
+			[
+				"pro",
+				"proto\tPrototype"
+			],
+			[
+				"li",
+				"link\tTag"
+			],
+			[
+				"ari",
+				"arithmeticProgression"
+			],
+			[
+				"sc",
+				"script"
+			],
+			[
+				"sum",
+				"summation"
+			],
+			[
+				"the",
+				"then"
+			],
+			[
+				"W",
+				"WEATHER_API"
+			],
+			[
+				"cre",
+				"client_secret"
+			],
+			[
+				"clie",
+				"client_id"
+			],
+			[
+				"clien",
+				"client_secret"
+			],
+			[
+				"me",
+				"method"
+			],
+			[
+				"DIG",
+				"DIGICEL_URL"
+			],
+			[
+				"bmo",
+				"Bmobile-vodafone"
+			],
+			[
+				"de",
+				"deci"
+			],
+			[
+				"dec",
+				"deci2Bin"
+			],
+			[
+				"sta",
+				"startGame"
+			],
+			[
+				"onlo",
+				"onload\tAttr"
+			],
+			[
+				"rec",
+				"recipient"
+			],
+			[
+				"qu",
+				"queryType"
+			],
+			[
+				"type",
+				"type"
+			],
+			[
+				"q",
+				"qs"
+			],
+			[
+				"no",
+				"no_story"
+			],
+			[
+				"serc",
+				"searchType"
+			],
+			[
+				"sear",
+				"searchType"
+			],
+			[
+				"typ",
+				"searchType"
+			],
+			[
+				"op",
+				"options"
+			],
+			[
+				"page",
+				"pageAccessToken"
+			],
+			[
+				"mail",
+				"mails"
+			],
+			[
+				"mai",
+				"mails"
+			],
+			[
+				"f",
+				"f\tAnonymous Function"
+			],
+			[
+				"requ",
+				"require"
+			],
+			[
+				"getM",
+				"getMailsFromYahoo"
+			],
+			[
+				"Mai",
+				"getMailsFromYahoo"
+			],
+			[
+				"r",
+				"req"
+			],
+			[
+				"on",
+				"onRequest"
+			],
+			[
+				"an",
+				"answer"
+			],
+			[
+				"l",
+				"li"
+			],
+			[
+				"u",
+				"ul"
+			],
+			[
+				"exp",
+				"express"
+			],
+			[
+				"Exp",
+				"express"
+			],
+			[
+				"c",
+				"cdata\tCDATA"
+			],
+			[
+				"twit",
+				"twitterbot"
+			],
+			[
+				"all",
+				"allow"
+			],
+			[
+				"is",
+				"isLoggedIn"
+			],
+			[
+				"mus",
+				"musicSchema"
+			],
+			[
+				"bot",
+				"botname"
+			],
+			[
+				"fil",
+				"file"
 			],
 			[
 				"quote",
@@ -16,14 +428,6 @@
 				"forEach"
 			],
 			[
-				"res",
-				"response"
-			],
-			[
-				"re",
-				"response"
-			],
-			[
 				"ree",
 				"require"
 			],
@@ -32,24 +436,12 @@
 				"movieSchema"
 			],
 			[
-				"pro",
-				"process"
-			],
-			[
 				"produc",
 				"products"
 			],
 			[
-				"cons",
-				"const"
-			],
-			[
 				"pad",
 				"pageID"
-			],
-			[
-				"req",
-				"req"
 			],
 			[
 				"tok",
@@ -70,10 +462,6 @@
 			[
 				"ht",
 				"httpServer"
-			],
-			[
-				"is",
-				"IS_MOBILE"
 			],
 			[
 				"image",
@@ -116,10 +504,6 @@
 				"MCard"
 			],
 			[
-				"for",
-				"for\tfor (…) {…}"
-			],
-			[
 				"fu",
 				"fun\tFunction"
 			],
@@ -130,470 +514,103 @@
 			[
 				"pl",
 				"playerhand"
-			],
-			[
-				"card",
-				"cardh"
-			],
-			[
-				"car",
-				"cardw"
-			],
-			[
-				"hou",
-				"houseyp"
-			],
-			[
-				"hous",
-				"househand"
-			],
-			[
-				"pla",
-				"playerxp"
-			],
-			[
-				"playe",
-				"playeryp"
-			],
-			[
-				"pal",
-				"playerhand"
-			],
-			[
-				"con",
-				"contextId"
-			],
-			[
-				"sig",
-				"getSignature"
-			],
-			[
-				"back",
-				"backendURL"
-			],
-			[
-				"resu",
-				"result"
-			],
-			[
-				"cel",
-				"_cells"
-			],
-			[
-				"stat",
-				"statusText"
-			],
-			[
-				"st",
-				"statusText"
-			],
-			[
-				"dis",
-				"displayError"
-			],
-			[
-				"remo",
-				"removeAllCells"
-			],
-			[
-				"get",
-				"getPlayerID"
-			],
-			[
-				"mat",
-				"matchData"
-			],
-			[
-				"make",
-				"makeGrid"
-			],
-			[
-				"add",
-				"addEventListener"
-			],
-			[
-				"win",
-				"window"
-			],
-			[
-				"on",
-				"onload"
-			],
-			[
-				"ma",
-				"makeMatch2"
-			],
-			[
-				"pop",
-				"populateWithPhotos"
-			],
-			[
-				"fi",
-				"firstChild"
-			],
-			[
-				"create",
-				"createElement"
-			],
-			[
-				"anc",
-				"anchor"
-			],
-			[
-				"ima",
-				"imageId"
-			],
-			[
-				"sec",
-				"sceneRoot"
-			],
-			[
-				"v",
-				"valign"
-			],
-			[
-				"cle",
-				"className"
-			],
-			[
-				"cell",
-				"cellEl"
-			],
-			[
-				"creat",
-				"createTextNode"
-			],
-			[
-				"ro",
-				"rowEl"
-			],
-			[
-				"row",
-				"rows"
-			],
-			[
-				"sce",
-				"sceneRoot"
-			],
-			[
-				"frie",
-				"friends"
-			],
-			[
-				"pre",
-				"preload"
-			],
-			[
-				"span",
-				"span2"
-			],
-			[
-				"clas",
-				"class"
-			],
-			[
-				"sp",
-				"span2"
-			],
-			[
-				"scre",
-				"sceneRoot"
-			],
-			[
-				"spa",
-				"span1"
-			],
-			[
-				"fb-",
-				"fb-button-text"
-			],
-			[
-				"cls",
-				"className"
-			],
-			[
-				"fb",
-				"fb-button-logo"
-			],
-			[
-				"appen",
-				"appendChild"
-			],
-			[
-				"cat",
-				"catch"
-			],
-			[
-				"prop",
-				"prototype"
-			],
-			[
-				"faceboo",
-				"Facebook"
-			],
-			[
-				"game",
-				"gamearea"
-			],
-			[
-				"paren",
-				"parentNode"
-			],
-			[
-				"user",
-				"userDetailsFromFb"
-			],
-			[
-				"rea",
-				"readItemFromLocalStorage"
-			],
-			[
-				"java",
-				"javascripts"
-			],
-			[
-				"crea",
-				"createElement"
-			],
-			[
-				"do",
-				"document"
-			],
-			[
-				"lose",
-				"loses"
-			],
-			[
-				"out",
-				"output"
-			],
-			[
-				"chi",
-				"firstChild"
-			],
-			[
-				"aja",
-				"ajaxRequest"
-			],
-			[
-				"repos",
-				"response"
-			],
-			[
-				"test",
-				"testApi"
-			],
-			[
-				"not",
-				"not_authorized"
-			],
-			[
-				"fnc",
-				"function"
-			],
-			[
-				"a",
-				"auto"
-			],
-			[
-				"data",
-				"data"
-			],
-			[
-				"profile",
-				"profile"
-			],
-			[
-				"ex",
-				"expires"
-			],
-			[
-				"au",
-				"authResponse"
-			],
-			[
-				"acc",
-				"accessToken"
-			],
-			[
-				"auth",
-				"authResponse"
-			],
-			[
-				"log",
-				"login"
-			],
-			[
-				"conn",
-				"connected"
-			],
-			[
-				"if",
-				"if\tif"
-			],
-			[
-				"funnc",
-				"function"
-			],
-			[
-				"min",
-				"minIndex"
-			],
-			[
-				"face",
-				"facebook_friends"
-			],
-			[
-				"frien",
-				"facebook_friends"
-			],
-			[
-				"Form",
-				"submitForm"
-			],
-			[
-				"dat",
-				"data"
-			],
-			[
-				"getC",
-				"getCurrentUser"
-			],
-			[
-				"u",
-				"unique"
-			],
-			[
-				"Mon",
-				"MongoClient"
-			],
-			[
-				"mongo",
-				"mongodb"
-			],
-			[
-				"json",
-				"jsonfile"
-			],
-			[
-				"top",
-				"topTenWinings"
-			],
-			[
-				"succe",
-				"success"
-			],
-			[
-				"per",
-				"performanceRating"
-			],
-			[
-				"plaer",
-				"player1"
-			],
-			[
-				"loser",
-				"loser_draws_arr"
-			],
-			[
-				"winner",
-				"winner_draws_arr"
-			],
-			[
-				"len",
-				"length"
-			],
-			[
-				"obj",
-				"object"
-			],
-			[
-				"gener",
-				"gender"
-			],
-			[
-				"retu",
-				"returned"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "app.js",
+			"file": "server/server.js",
 			"settings":
 			{
-				"buffer_size": 2106,
+				"buffer_size": 490,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "routes/flogg-api.js",
+			"file": "server/app.js",
 			"settings":
 			{
-				"buffer_size": 1292,
+				"buffer_size": 2982,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "models/flogg_user.js",
+			"file": "server/routes/api.js",
 			"settings":
 			{
-				"buffer_size": 728,
+				"buffer_size": 5890,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "models/product.js",
+			"file": "server/routes/bot.js",
 			"settings":
 			{
-				"buffer_size": 387,
+				"buffer_size": 24740,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/assets/js/html5.pingpong.js",
+			"settings":
+			{
+				"buffer_size": 244,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "routes/api.js",
+			"file": "server/config/dbLayer/mongodb.js",
 			"settings":
 			{
-				"buffer_size": 20076,
+				"buffer_size": 917,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "routes/pomsox-api.js",
+			"file": "server/.env",
 			"settings":
 			{
-				"buffer_size": 7344,
+				"buffer_size": 1220,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/Wantok/Downloads/BSP.csv",
+			"contents": "turtles-own[ days-sick fatality ]\nglobals[ step setup-population ]\n\nto setup\n  ca ;; clear screen\n  crt initial-population ;; create turtles\n\n  set setup-population initial-population\n  set step .175\n\n  setup-patches\n\n  ask turtles [\n    set shape \"person\"\n    set color green\n    set size 1.5\n    set days-sick 0\n    ifelse who = 0 [\n      set color red;; make one turtle sick\n    ]\n    [\n      setxy random-xcor random-ycor ;; set random positions\n    ]\n  ]\n\n  ifelse num-doctors < count(turtles)\n  [\n    ;; make some of the turtles into doctors\n    ask n-of num-doctors turtles with [color != red] [\n      set color white\n    ]\n  ]\n  [\n    ;; if the number of doctors is more than the number of turtles,\n    ;; make all the turtles doctors\n    ask turtles [\n      set color white\n    ]\n  ]\n  reset-ticks\nend\n\nto setup-patches\n    ask patches[set pcolor black]\n  if limit-travel ;; set up two borders dividing the screen\n  [\n    let quarentine-x -10\n    ask patches [\n      if (pxcor) = quarentine-x\n      [ set pcolor brown ]\n    ]\n    ask n-of travel-openings patches with [pxcor = quarentine-x] [\n      set pcolor black\n    ]\n\n    set quarentine-x 10\n    ask patches [\n      if (pxcor) = quarentine-x\n      [ set pcolor brown ]\n    ]\n    ask n-of travel-openings patches with [pxcor = quarentine-x] [\n      set pcolor black\n    ]\n  ]\nend\n\nto go\n\n  ask turtles [\n    move ;; move randomly\n    get-infected ;; get infected\n    deceased ;; could die\n    recover\n\n    if vaccination [\n      get-vaccinated\n    ]\n\n    if medication [\n      get-treated\n    ]\n  ]\n\n  tick\nend\n\nto recover\n  if color = red and\n     days-sick > days-to-recover and\n     random 100 < 20\n  [\n    ifelse (fatality = true) [\n      die\n     ]\n     [\n      set color blue\n     ]\n  ]\nend\n\nto move\n  rt random 30\n  lt random 30\n  ifelse patch-ahead 1 != nobody and\n         [pcolor] of patch-ahead 1 = black\n  [\n    fd step\n  ]\n  [\n    rt 180\n  ]\nend\n\nto get-infected\n  let hygiene-factor (1 - (hygiene * .009))\n  if color = green and\n     any? turtles-here with [color = red] and\n     random 100 < (infectiousness * hygiene-factor * step)\n  [\n    set color red\n    set fatality (random 100 < fatality-rate)\n  ]\nend\n\nto get-vaccinated\n  if color = green and\n     any? turtles-here with [color = white] and\n     random 100 < (100 * step)\n  [\n    set color blue\n    set shape \"vaccinated\"\n  ]\nend\n\nto get-treated\n  if color = red and\n     any? turtles-here with [color = white]\n  [\n    set color blue\n    set shape \"tamiflu\"\n  ]\nend\n\n\nto deceased\n  if color = red\n  [\n    set days-sick days-sick + step\n  ]\n  if color = red and fatality = true and\n    random 100 < 30\n  [\n    die\n  ]\nend",
 			"settings":
 			{
-				"buffer_size": 40102,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/Wantok/Downloads/sm_widgets.min.js",
-			"settings":
-			{
-				"buffer_size": 20536,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
+				"buffer_size": 2656,
+				"line_ending": "Windows",
+				"name": "turtles-own[ days-sick fatality ]"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Packages/Python/Python.sublime-build",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
 	],
 	"build_varint": "",
 	"command_palette":
@@ -603,12 +620,12 @@
 		"selected_items":
 		[
 			[
-				"Package Control: ",
-				"Package Control: List Packages"
+				"",
+				":$ - EOF"
 			],
 			[
-				"",
-				"Preferences: Key Bindings"
+				"Package Control: ",
+				"Package Control: List Packages"
 			],
 			[
 				"Snippet: ",
@@ -626,6 +643,15 @@
 		"height": 126.0,
 		"history":
 		[
+			"explorer .",
+			"cmd",
+			"java",
+			"ruby",
+			"npm",
+			"node",
+			"help",
+			"-h",
+			"npm start"
 		]
 	},
 	"distraction_free":
@@ -639,148 +665,152 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/Wantok/WebstormProjects/crisbot"
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/assets",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/assets/js"
 	],
 	"file_history":
 	[
-		"/C/Users/Wantok/WebstormProjects/crisbot/models/visitor.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/models/sweetlips.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/models/movie.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/models/model.js",
-		"/C/xampp/htdocs/christianaugustyn/api/1/BSP.csv",
-		"/C/Users/Wantok/WebstormProjects/crisbot/routes/zyknet-api.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/xmlhttprequest/README.md",
-		"/C/Users/Wantok/WebstormProjects/crisbot/models/quote.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/server.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/app (2).js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/package.json",
-		"/C/Users/Wantok/WebstormProjects/crisbot/routes/telikom-api.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/package.json",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/package.json",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/lib/database.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/routes/iot.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/config/dbLayer/mongodb.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/README.md",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/sample_file.txt",
+		"/C/xampp/htdocs/christianaugustyn/public/js/application.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/routes/witai.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/assets/js/physics/math-functions.js",
+		"/C/Users/Wantok/Downloads/sm_widgets.min.js",
+		"/C/Users/Wantok/WebstormProjects/hello-next/package.json",
+		"/C/Program Files/MySQL/MySQL Workbench 6.3 CE/workbench/graphics/cairo_utils.py",
+		"/C/Program Files/MySQL/MySQL Workbench 6.3 CE/workbench/graphics/__init__.py",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/models/device.model.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/mqtt.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/routes/oauth.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/lib/database.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/env/production.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/env/development.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/password.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/keys.js",
+		"/C/Users/Wantok/WebstormProjects/chat/config/config.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/database.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/routes/api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/routes/iot.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/package.json",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/dbLayer/mysql.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/dbLayer/mongodb.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/config/mysqlLayer.js",
+		"/C/Users/Wantok/WebstormProjects/chat/config/env/production.js",
+		"/C/Users/Wantok/WebstormProjects/chat/config/database.js",
+		"/C/Users/Wantok/WebstormProjects/chat/config/mysql.js",
+		"/C/Users/Wantok/WebstormProjects/chat/config/env/development.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/lib/response.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/lib/middlewares.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/lib/handlers.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/server.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server/.env",
+		"/C/Users/Wantok/AppData/Local/Yarn/Data/link/@angular/devkit-repo/bin/ng",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/index.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/js/script.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/pomsox-api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/routes.js",
 		"/C/Users/Wantok/WebstormProjects/crisbot/routes/api.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/routes/digicel-api.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/package (2).json",
 		"/C/Users/Wantok/WebstormProjects/crisbot/app.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/models/user.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/models/product.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/database.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/models/post.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/package.json",
+		"/C/Users/Wantok/WebstormProjects/crisbot/package.json",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/middlewares.js",
+		"/C/Users/Wantok/WebstormProjects/chat/chatme-mobile/routes/index.js",
+		"/C/Users/Wantok/WebstormProjects/chat/chatme-mobile/server.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/oauth.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/server.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/database.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/views/map.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/views/selfmowingmower.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/js/physics/math-functions.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/main.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/README.md",
+		"/C/Users/Wantok/WebstormProjects/crisbot/views/physics/chapter16/planets_data/Earth_XYZ.csv",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/profile.json",
+		"/C/Program Files/arduino-1.6.7-windows/arduino-1.6.7/hardware/arduino/avr/bootloaders/lilypad/src/Makefile",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/iftt/rules.json",
+		"/C/Users/Wantok/WebstormProjects/crisbot/models/phonetracker.js",
+		"/C/Users/Wantok/WebstormProjects/chat/chatme-mobile/models/location.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/mail-api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/weather-api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/instagram-api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/iot.js",
+		"/C/Users/Wantok/Documents/workspace/Java4Beginners/src/network/IPAddress.java",
+		"/C/Users/Wantok/WebstormProjects/hacking-cracking-tools/DDLGettingStarted/bin/Debug/DDLGettingStarted.dll",
+		"/C/Users/Wantok/WebstormProjects/crisbot/views/wild-cat-antelop.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/flogg-api.js",
 		"/C/Users/Wantok/WebstormProjects/crisbot/.env",
-		"/C/Users/Wantok/WebstormProjects/crisbot/twitter_bot.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/routes/user_api.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/routes/post_api.js",
-		"/E/Lucent360/scripts/loginFlow.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/Cris.ioBot.sublime-project",
-		"/C/Users/Wantok/WebstormProjects/crisbot/routes/webhook.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/api.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/faye-websocket/lib/faye/websocket/api.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/server.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/bot.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/routes.js",
-		"/C/Users/Wantok/WebstormProjects/chat/routes/api/v1/index.js",
-		"/C/Users/Wantok/WebstormProjects/chat/routes/api/v2/index.js",
-		"/C/Users/Wantok/WebstormProjects/chat/models/account.model.js",
-		"/C/Users/Wantok/WebstormProjects/chat/models/user.model.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/music.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/views/electric-field-line-simulator.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/algorithm.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/twitterbot.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/credentials.json",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/gmail2sms.html",
 		"/C/Users/Wantok/WebstormProjects/crisbot/.gitignore",
-		"/C/Users/Wantok/WebstormProjects/crisbot/httpRequest.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/httpServerModule.js",
-		"/C/Users/Wantok/WebstormProjects/chat/server/httpRequest.js",
-		"/C/Users/Wantok/WebstormProjects/chat/server/httpServerModule.js",
-		"/C/Users/Wantok/Downloads/all.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/twitter_bot_module.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/.env",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/post.yaml",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/blackjack.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/graph.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/javascripts/rigidbody.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/home.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/DAN-BALL_Game.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/javascripts/dust.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/game6.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/standbyserver.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/mobile.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/javascripts/script.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/run.bat",
-		"/J/demo.sh",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/tic-tac-toe/fbinstant-tictactoe-client/js/game.js",
-		"/C/Users/Wantok/Downloads/simple_dialog.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/submit.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/platform.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/friends.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/robots.txt",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/javascripts/game_nativead.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/site/index.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/javascripts/sdk.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/javascripts/fb_init.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/javascripts/keystrokelogger.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/chatzone.html",
-		"/C/Users/Wantok/WebstormProjects/webchat/server.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/sinch-rest-api/samples/create_user.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/socket.io/lib/namespace.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/socket.io/lib/socket.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/javascripts/lib/socket.io.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/socket.io-client/dist/socket.io.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/sockjs/examples/test_server/server.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/sockjs/examples/test_server/sockjs_app.js",
-		"/C/Users/Wantok/WebstormProjects/node_modules/socket.io/node_modules/socket.io-client/lib/socket.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/disclaimer.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/package.json",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/psitsmike_example_2-master/package.json",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/psitsmike_example_2-master/index.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/psitsmike_example_2-master/app.js",
-		"/C/Program Files/Ampps/php-5.6/ext/php_openssl.dll",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/.gitignore",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app/routes.js",
-		"/C/xampp/htdocs/xampp/.version",
-		"/C/Users/Wantok/WebstormProjects/chat/app/assets/images/loader.svg",
-		"/C/Users/Wantok/Documents/New folder/autorun.inf",
-		"/E/AUTORUN.INF",
-		"/J/Temp/.autorun.inf",
-		"/J/Temp/Computer Science/eBooks/Networking/CCNA_ 3.0/CCNA/CCNA1_v30/en_CCNA1_v30/javascript/buttons.js",
-		"/C/Users/Wantok/Documents/New folder/Brand/techsavvy-oeminfo.reg",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/connect.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/public/javascripts/script.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/models/sweetlips-model.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/photos.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/api.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/public/javascripts/emoji.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/config/passport-setup.js",
-		"/C/xampp/htdocs/facemash/folder.bat",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/about.html",
-		"/C/Users/Wantok/AppData/Local/Google/Chrome/User Data/Default/Extensions/iffdacemhfpnchinokehhnppllonacfj/6.4_0/js/libs/bootstrap-modal-master/bs3.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/public/javascripts/javascript.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/public/javascripts/scratchpad.js",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/index.ejs",
-		"/C/Users/Wantok/WebstormProjects/node_modules/node-notifier/vendor/snoreToast/SnoreToast.exe",
-		"/C/Users/Wantok/WebstormProjects/chat/app/assets/home.svg",
-		"/C/Users/Wantok/Documents/workspace/ChatMe/assets/ChatMe Setup.txt",
-		"/C/Users/Wantok/Documents/workspace/ChatMe/MongoDB.txt",
-		"/C/Users/Wantok/Documents/workspace/ChatMe/ChatMe App Structure.txt",
-		"/C/Users/Wantok/Documents/workspace/ChatMe/ChatMe.txt",
-		"/C/Users/Wantok/Documents/workspace/ChatMe/ReadMe.txt",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/views/Disclaimer.html",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/app2.js",
-		"/C/Program Files/MongoDB/Server/3.2/bin/mongodb.config",
-		"/C/Users/Wantok/WebstormProjects/StuckWanYah/StuckWanYahProject.sublime-project",
-		"/C/Users/Admin/AppData/Local/Temp/Rar$EX79.536/faceclash-master/assets/js/faceclash.js",
-		"/C/Users/Admin/WebstormProjects/StuckWanYah/public/javascripts/script.js",
-		"/C/Users/Admin/WebstormProjects/StuckWanYah/StuckWanYah.url",
-		"/C/Users/Admin/WebstormProjects/StuckWanYah/post.yaml",
-		"/C/Users/Admin/WebstormProjects/StuckWanYah/models/sweetlips-model.js",
-		"/C/Users/Admin/WebstormProjects/StuckWanYah/config.js",
-		"/C/Users/Admin/WebstormProjects/StuckWanYah/photos.js",
-		"/C/Users/Admin/AppData/Local/Temp/Rar$EX05.024/faceclash-master/assets/js/faceclash.js",
-		"/C/Users/Admin/WebstormProjects/StuckWanYah/views/disclaimer.html"
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/css/style.css",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/bootstrap.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/assets/css/jumbotron-narrow.css",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/gmail.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/gmail.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/bootstrap.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/json.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/gmail2sms.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/mysqlLayer.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/preload.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/index (2).html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/package (2).json",
+		"/C/xampp/htdocs/christianaugustyn/ajax/messaging/typ.php",
+		"/C/xampp/htdocs/christianaugustyn/public/libs/instagram.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/telikom-api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/facebook-api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/bmobile-api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/availablePlans.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/digicel-api.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/views/graph2.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/js/lib/Shape.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/js/final.js",
+		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/script2.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/bot.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/response.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/handlers.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/randomWords/fiveLetterFrequency.csv",
+		"/C/Users/Wantok/WebstormProjects/crisbot/lib/randomWords/twoLetterFrequency.csv",
+		"/F/Android/data/com.google.android.music/files/._playmusicid",
+		"/C/Users/Wantok/WebstormProjects/crisbot/views/geometry.html",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/js/lib/Circle.js",
+		"/E/Lucent360/Using Node.js to Interact with Facebook's Graph API_files/ghost-url.min.js.download",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/js/physics/math_functions.js",
+		"/C/RailsInstaller/Git/git-bash.bat",
+		"/C/Users/Wantok/WebstormProjects/crisbot/bot.js",
+		"/C/xampp/htdocs/christianaugustyn/public/libs/md5.js",
+		"/C/xampp/htdocs/christianaugustyn/public/libs/md52.js",
+		"/C/Users/Wantok/.WebStorm2019.1/config/javascript/nodejs/8.9.4/core-modules/crypto.js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/app (2).js",
+		"/C/Users/Wantok/WebstormProjects/crisbot/client/js/DNSDetectiveClient.js",
+		"/C/Users/Wantok/WebstormProjects/hacking-cracking-tools/download.sh",
+		"/C/Users/Wantok/WebstormProjects/crisbot/routes/availablePlans2.html",
+		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common.min.js",
+		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common-plans.min.js",
+		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common3.js",
+		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common2.js",
+		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common.js",
+		"/C/xampp/htdocs/ZykNet/README.md"
 	],
 	"find":
 	{
-		"height": 41.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 178.0,
 		"where_history":
 		[
+			"C:\\Users\\Wantok\\WebstormProjects\\crisbot\\node_modules"
 		]
 	},
 	"find_state":
@@ -788,23 +818,134 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"Product",
-			"Flogg",
-			"Product",
-			"\\n",
-			"\\-.[a-zA-Z]*",
-			"product",
-			"i",
-			"\\r\\n|\\n",
+			"sendTextMessage",
+			"imageTemplate",
+			"processText",
+			"’",
+			"‘",
+			"FACEBOOK_PAGE_ACCESS_TOKEN",
+			"sender_psid",
+			"sendGetStarted",
+			"callSendAPI",
+			"processPostback",
+			"response",
+			"request",
+			"cairo_image_surface_create_from_png",
+			"ImageSurface",
+			"app.",
+			"\t  ",
+			"\n  ",
+			", ",
+			"accept",
+			"accepts",
+			"basicAuth",
 			"  ",
-			"build-your-own-backend",
-			"api.",
-			"api",
-			"handlePostback",
-			"req.body.",
-			"  ",
+			"xml",
+			"parseXML",
+			"getData",
+			"body.",
+			"console",
+			"/data",
+			"app.",
+			"IREIU",
+			"3GHHD",
+			"3RHFDJ",
+			"GMJQF",
+			"([A-Z0-9]{5}-?){5}",
+			"([A-Z0-9]{5}-?)",
+			"([A-Z0-9]{5}-)",
+			"\"/css",
+			"\"/js",
+			"           ",
+			"          ",
+			"            ",
+			"           ",
+			"          ",
+			"with",
+			"myCurrentLocation",
+			"initialize",
+			"router.",
+			"Available_Ddevices",
+			"mynetorkips",
+			"dec",
+			"bin",
+			"flogg",
+			"fs-extra",
+			"middlewares",
+			"                        ",
+			"                       ",
+			"                      ",
+			"                     ",
+			"                    ",
+			"                   ",
+			"                  ",
+			"                 ",
+			"                ",
+			"               ",
+			"              ",
+			"             ",
+			"            ",
+			"           ",
+			"          ",
+			"         ",
+			"        ",
+			"\\w==\\d",
+			"e==4",
+			"\\w=\\w",
+			"./",
+			"javascripts",
+			"                      ",
+			"                     ",
+			"                    ",
+			"\t\t  ",
+			"/assets",
+			"s:",
+			"samples.",
+			"assets",
+			"data",
+			"$",
+			"./assets",
+			"../.",
+			"./a",
+			"web",
+			"sum",
+			"circle",
+			"Circle",
+			"Lieasi",
+			" ",
+			"\t",
+			"\\d{2,}\\\"",
+			"\\\".\\d{2,}\\\"",
+			"\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t\t",
+			"\t\t\t\t\t\t",
+			"\t\t\t\t\t",
+			"\t\t\t\t",
+			"\t\t\t",
+			"\t\t",
+			"\t",
+			"Freq",
+			"javascripts",
+			"request",
 			"    ",
-			"hub.verify_token"
+			"photos.limit(2).order(reverse_chronological){link, comments.limit(2).order(reverse_chronological)}",
+			"callSendMessage",
+			"tion receivedMessage",
+			"receivedMessage"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -822,24 +963,141 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app.js",
+					"file": "server/server.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2106,
+						"buffer_size": 490,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								369,
+								369
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "server/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2982,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2900,
+								2909
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 623.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "server/routes/api.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5890,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1968,
+								1968
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 340.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "server/routes/bot.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 24740,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23493,
+								23493
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "client/assets/js/html5.pingpong.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 244,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								180,
+								180
 							]
 						],
 						"settings":
@@ -851,24 +1109,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "routes/flogg-api.js",
+					"buffer": 5,
+					"file": "server/config/dbLayer/mongodb.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1292,
+						"buffer_size": 917,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								237,
-								237
+								677,
+								677
 							]
 						],
 						"settings":
@@ -884,177 +1142,62 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "models/flogg_user.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 728,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								353,
-								353
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "models/product.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 387,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								256,
-								256
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "routes/api.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 20076,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								710,
-								710
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "routes/pomsox-api.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7344,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
 					"buffer": 6,
-					"file": "/C/Users/Wantok/Downloads/BSP.csv",
+					"file": "server/.env",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 40102,
+						"buffer_size": 1220,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								318,
+								302
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2656,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								313,
+								313
+							]
+						],
+						"settings":
+						{
+							"auto_name": "turtles-own[ days-sick fatality ]",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/C/Users/Wantok/Downloads/sm_widgets.min.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 20536,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								849,
-								849
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1097,7 +1240,7 @@
 	},
 	"output.find_results":
 	{
-		"height": 0.0
+		"height": 109.0
 	},
 	"output.unsaved_changes":
 	{
@@ -1116,6 +1259,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"ex",
+				"views\\physics\\chapter16\\planets_data\\Earth_XYZ.csv"
+			],
+			[
+				"",
+				"client\\js\\physics\\math-functions.js"
+			]
 		],
 		"width": 0.0
 	},
@@ -1127,7 +1278,7 @@
 		[
 			[
 				"",
-				"C:\\Users\\Wantok\\WebstormProjects\\StuckWanYah\\StuckWanYahProject.sublime-project"
+				"C:\\Users\\Christian AUGUSTYN\\WebstormProjects\\epsilonpi\\epsilonpi.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -1149,7 +1300,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 221.0,
+	"side_bar_width": 296.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

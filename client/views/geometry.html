@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>   
+        <title>Geometry</title>
+        <link rel ="icon" type ="image/x-icon" href="/favicon.jpg">
+    </head>
+    <body onload="var game = new MyGame();"> 
+        <table style="padding: 2px">
+            <tr>
+                <td> 
+                    <div>
+                        <canvas id="canvas"></canvas>    
+                    </div>
+                </td>
+                <td>
+                    <div id="uiEchoString">  </div>
+                </td>
+            </tr>
+        </table>    
+        <script type="text/javascript" src="/js/lib/Vec2.js"></script>
+
+        <script type="text/javascript" src="/js/lib/Circle.js"></script>  
+        <script type="text/javascript" src="/js/lib/Rectangle.js"></script>     
+
+        <script type="text/javascript">
+            "use strict";
+            function MyGame() {
+                var width = 450;
+                var height = 300;
+            
+                var up = new Rectangle(new Vec2(width / 2, 0), width, 3);
+                var down = new Rectangle(new Vec2(width / 2, height), width, 3);
+                var left = new Rectangle(new Vec2(0, height / 2), 3, height);
+                var right = new Rectangle(new Vec2(width, height / 2), 3, height);
+            }
+        </script>
+    </body>
+</html>

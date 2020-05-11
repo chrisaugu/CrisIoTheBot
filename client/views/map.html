@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=default-width; user-scalable=no" />
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>Map</title>
+  <meta name="description" content="StuckWanYah lets you vote for your Facebook friends' hotness">
+  <link rel="favicon" type="icon" href="/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/js/script.js">
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTyGIyCGI-aZWYu3xVvHJjNnvccJjklII&sensor=false"></script>
+  <script type="text/javascript">
+    var map;
+    var geocoder;
+    function initialize() {
+      var mapOptions = {
+        center: new google.maps.LatLng(34, 0),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoom:1
+      };
+      map = new google.maps.Map(document.getElementById("map_image"), mapOptions);
+      geocoder = new google.maps.Geocoder();
+      
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          
+          document.getElementById('latitude').innerHTML = pos.lat.toFixed(3);
+          document.getElementById('longitude').innerHTML = pos.lng.toFixed(3);
+          document.getElementById('accuracy').innerHTML = position.coords.accuracy+" Meters";
+          map.setCenter(pos);
+          map.setZoom(13);
+          var marker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            title: 'You are here!'
+          });
+           marker.setAnimation(google.maps.Animation.BOUNCE);
+          var geocodeRequest = {location:pos};
+          geocoder.geocode(geocodeRequest, function geoResults(results, status){
+            if (status == google.maps.GeocoderStatus.OK) {
+              document.getElementById('address').innerHTML = results[0].formatted_address;
+              }else{
+              alert("Sorry, we were unable to geocode that address");
+            }
+          });
+        }, function() {
+          //handleLocationError(true, infoWindow, map.getCenter());
+        }); 
+      } else {
+        // Browser doesn't support Geolocation
+        //handleLocationError(false, infoWindow, map.getCenter());
+      }
+    }
+
+    initialize();
+  </script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js"></script>
+  <script>
+    //key for mycurrentlocation -->
+    mapboxgl.accessToken = 'pk.eyJ1IjoidG9uaXRlZ2Fyc2FoaWRpIiwiYSI6ImNqazlkN3Z0NTBheDUzd252bHZpMzY2bnAifQ.ISZiTcNEyxhQujDxWH4FWg';
+  </script>
+  <script>
+    this.myLatitude = 0;
+    this.myLongitude = 0;
+    
+    function myCurrentLocation() {
+      var output = document.getElementById("mapbox");
+      var outputmaps = document.getElementById("maps-mapbox");
+      var outputLatitude = document.getElementById("latitude");
+      var outputLongitude = document.getElementById("longitude");
+      var outputAltitude = document.getElementById("altitude");
+      var outputAccuracy = document.getElementById("accuracy");
+      var outputCountry = document.getElementById("countryname");
+      var outputRegion = document.getElementById("regionname");
+      var outputPlace = document.getElementById("placename");
+      var outputEstimateAddress = document.getElementById("estimatelocationaddress");
+      var outputNeighborhood = document.getElementById("neighborhood");
+    
+      if (!navigator.geolocation) {
+        output.innerHTML = "<p>Sorry, Geolocation is not supported by your browser. Please use Chrome or Firefox for better experience</p>";
+        return;
+      }
+    
+      function success(position) {
+        //clearing all elements //hiding them
+    
+        //$("#output-pre-maps").hide();     //jquery way
+        document.getElementById('output-pre-maps').style.display = 'none'; // hide
+        
+        //$("#warning-permission").hide();  //jquery way
+        document.getElementById('warning-permission').style.display = 'none'; // hide
+        
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var accuracy = position.coords.accuracy;
+    
+        outputLatitude.innerHTML = latitude.toFixed(5);
+        outputLongitude.innerHTML = longitude.toFixed(5);
+        outputAltitude.innerHTML = position.coords.altitude;
+        
+    
+        window.mylat = latitude;
+        output.innerHTML = "";
+    
+        var accuracyStatus;
+        if (position.coords.accuracy < 100) {
+          accuracyStatus = "<strong style=\"color:green;\">" + position.coords.accuracy.toFixed(2) + " m (Good)</strong>";
+        }
+        else if (position.coords.accuracy < 1000) {
+          accuracyStatus = "<strong style=\"color:orange;\">" + position.coords.accuracy.toFixed(2) + " m (Not so Accurate but Good Enough)</strong>";
+        }
+        else {
+          accuracyStatus = "<strong style=\"color:red;\">" + position.coords.accuracy.toFixed(2) + " m (Poor) " + '<a href=" #wronglocationdetected" title="Understand what it means">(?)</a>' +"</strong>";
+        }
+    
+        //display accuracy on the table
+        outputAccuracy.innerHTML = accuracyStatus;
+    
+        //output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+        /**
+        DISPLAY ON MAPBOX
+        */
+    
+        //when success loads the maps, clear the text on the maps container
+        outputmaps.innerHTML = '';
+    
+        //define the coordinate
+        var mapboxLat = latitude;
+        var mapboxLng = longitude;
+    
+        //create the maps instance
+        map = new mapboxgl.Map({
+          container: 'maps-mapbox',
+          style: 'mapbox://styles/mapbox/streets-v10',
+          zoom: 14,
+          center: [mapboxLng, mapboxLat]
+        });
+        // Add zoom and rotation controls to the map.
+        map.addControl(new mapboxgl.NavigationControl());
+        //add fullscreen controls to the map
+        map.addControl(new mapboxgl.FullscreenControl());
+    
+        //create the popup instance
+    
+        // create the popup
+        var markerHeight = 50, markerRadius = 10, linearOffset = 25;
+        var popupOffsets = {
+          'top': [0, 0],
+          'top-left': [0, 0],
+          'top-right': [0, 0],
+          'bottom': [0, -markerHeight],
+          'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+          'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+          'left': [markerRadius, (markerHeight - markerRadius) * -1],
+          'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+        };
+    
+        //CREATE THE GEOCODER
+        //create the geocoder URL
+        var geourl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + mapboxLng + ',' + mapboxLat + '.json?access_token=' + mapboxgl.accessToken + '';
+        
+        //without jquery and use AJAX? are you seriously?
+        //yeah, why not?
+        
+        //ajax calling the json
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', geourl);
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            //alert('User\'s name is ' + xhr.responseText);
+    
+            var data = JSON.parse(xhr.responseText);
+    
+            //now extract the data
+            var regionname = data.features[5].text;
+            var placename = data.features[4].text;
+            var countryname = data.features[6].text;
+            var neighborhood = data.features[1].text + ', ' + data.features[2].text + ', ' + data.features[3].text ;
+            var estimateaddress = data.features[1].place_name;
+    
+    
+            //put to location box
+            outputCountry.innerHTML = countryname;
+            outputRegion.innerHTML = regionname;
+            outputPlace.innerHTML = placename;
+            outputNeighborhood.innerHTML = neighborhood;
+            
+            outputEstimateAddress.innerHTML = estimateaddress + " <br/><em>Accuracy :</em> " + accuracyStatus;
+            
+            //$("#estimatelocationaddress").show(500); //jquery way
+            document.getElementById('estimatelocationaddress').style.display = 'block'; // show this style
+    
+            //DISPLAY MARKER POPUP WITH SHARE ADDRESS LOCATION
+            var popupText = '<strong>You Are Here</strong>, <span id="geolocationname"></span>'
+              + " <br/> Lat : " + latitude.toFixed(5)
+              + " |  Long : " + longitude.toFixed(5)
+              + "<br/> Accuracy : " + accuracyStatus + '<br/> <span id="sharelocbutton">'
+              + '<strong><a target="_blank" href="shareme.php?data=' + latitude + '|' + longitude + '|' + neighborhood
+              + ' ">Share This Location</a></strong></span> &nbsp; '
+              // + '| &nbsp;<strong><a href="https://grocerystorefinder.net" target="_blank">Grocery Store Near Me</strong></a> <br/>'
+              +'';
+    
+            var popup = new mapboxgl.Popup({ offset: popupOffsets })
+              .addTo(map)
+              .setLngLat([mapboxLng, mapboxLat])
+              .setHTML(popupText);
+
+            //create the marker instance
+            var marker = new mapboxgl.Marker({
+              draggable: false,
+              color: '#FF2222'
+            })
+            .setLngLat([mapboxLng, mapboxLat])
+            //.setPopup(popup)
+            .addTo(map);
+              
+          } else {
+            //alert('Request failed.  Returned status of ' + xhr.status);
+    
+            //now extract the data
+            var regionname = "Data not Available";
+            var placename = "Data not Available";
+            var countryname = "Data not Available";
+            var neighborhood = "Data not Available";
+            var estimateaddress = "Data not Available";
+          }
+    
+        };
+        xhr.send();
+    
+        if (position.coords.accuracy > 1000) {
+          outputAccuracy.style.color = "red";
+          outputAccuracy.style.fontWeight = "900";
+        }
+        else {
+          outputAccuracy.style.color = "green";
+          outputAccuracy.style.fontWeight = "900";
+          //alert("This is our best estimates of your location...");
+          navigator.geolocation.clearWatch(watchid);
+          return;
+        }
+    
+      };
+    
+      function error() {
+        output.innerHTML = "Sorry, we are Unable to retrieve your location yet. <br />If you use smartphone, please Turn on your GPS and or wait 1-2 minutes.";
+
+        //var myip = document.getElementById("ipNumber").innerHTML;
+    
+      }
+    
+      var geo_options = {
+        enableHighAccuracy: true,
+        maximumAge: 30000,
+        timeout: 27000
+      };
+    
+      output.innerHTML = '<p>Please wait, we are detecting your location... Please click "Allow" or "Share Location" to Continue </p>';
+    
+      navigator.geolocation.getCurrentPosition(success, error, geo_options);
+      var watchid = navigator.geolocation.watchPosition(success, error, geo_options);
+      //alert("wpid : " + wpid);
+    }
+  </script>
+</head>
+<body onload="myCurrentLocation()">
+  <main>
+    <h1>Maps</h1>
+    <center>    
+      <h3>Google Maps</h3>
+      <div id="gmaps"></div>
+      <br>
+      <h3>Mapbox</h3>
+      <div id="mapbox"></div>
+    </center>
+  </main>
+</body>
+</html>

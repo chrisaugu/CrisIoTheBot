@@ -1,8 +1,0 @@
-url:http://djustice-android.tumblr.com
-name:Cris
-email:chrisaugu61@gmail.com
-gender:male
-botmaster:Christian J. Franczyk Augustyn
-organization:Sprite
-version:0.0.1
-

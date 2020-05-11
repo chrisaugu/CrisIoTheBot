@@ -1,0 +1,14 @@
+[{
+	"device": "b8:27:eb:39:92:0d",
+	"rules": [{
+		"if": {
+			"prop": "fall",
+			"cond": "eq",
+			"value": 1,
+		},
+		"then": {
+			"action": "EMAIL",
+			"to": "chrisaugu61@gmail.com"
+		}
+	}]
+}]

@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+		var commonPagerPrevious = "";
+		var commonPagerNext = "";
+		var mainThemeColor = "#E4002B";
+		var currentUserMsisdn = '67570523228';
+		var isMobile = false;
+		
+		(function(target){
+			var resources = {
+					'retrieveUserAccountsUrl': '/retrieveUserAccounts'
+					,'switchUserAccountUrl': '/switchUserAccount'
+					,'createGsmAccountUrl': '/createGsmAccount'
+					,'verifyGsmAccountUrl': '/verifyGsmAccount'
+					,'aapProfileAccountManagementUrl': 'https://digicelid.digicelgroup.com/management/accounts.do'
+					,'sessionExpiredMessage': 'Your session has expired. Please click <a href="/">here</a> to login.'
+					,'errorLoadingAccountsMsg': 'An error occurred while loading accounts'
+					,'errorSavingAccountMsg': 'An error occurred while saving the account'
+					,'errorVerifyingAccountMsg': 'An error occurred while verifying the account'
+					,'accountVerifiedMsg': 'The account has been verified'
+			};
+			
+			target.getResourceMain = function(key) {
+					return resources[key] || '';
+				}
+		})(window);
+	</script>
+<html>
+<head>
+<title>MyDigicel</title>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="msthemecompatible" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-itunes-app" content="app-id=1039460951">
+<link rel="icon" href="/images/favicon.png" />
+<link rel="manifest" href="/manifest.json">
+<link rel="stylesheet" type="text/css" href="/css/icons.min.css" />
+<link rel="stylesheet" type="text/css" href="/lib/css/materialize.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/main.min.css" />
+<link rel="stylesheet" type="text/css" href="/theme" />
+<link rel="stylesheet" type="text/css" href="/css/flags.min.css" />
+<script type="text/javascript" src="/lib/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/lib/js/materialize.min.js"></script>
+<script type="text/javascript" src="/js/common.min.js"></script>
+<script type="text/javascript" src="/lib/js/template7.min.js"></script>
+<script type="text/javascript" src="/lib/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="/js/flag-icon.min.js"></script>
+<script type="text/javascript" src="/js/msisdn-input.min.js"></script>
+<script type="text/javascript" src="https://digicelid.digicelgroup.com/marketDetails/js.do"></script>
+<script type="text/javascript" src="/js/alert.min.js"></script>
+<script type="text/javascript" src="/js/validate.min.js"></script>
+<script id="gsm-accounts-template" type="text/template7">
+<!-- Accounts Select Template -->
+{{#if accountSelectView}}
+<div class="row" id="accountSelectDiv">
+    <div class="col s12 m12 l12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Select your account</span>
+          <div class="gsmAccountsList">
+			<ol>
+				{{#each digicelAccounts}}
+				<li><a href="javascript:;" class='{{js "(this.msisdn || this.identifier) == currentUserMsisdn ? 'digi-red digi-cursor-default' : 'digi-grey digi-cursor-pointer'"}} digi-white-text' onclick="switchUserAccount('{{accountID}}')">{{js "this.friendlyName || this.msisdn || this.identifier"}}
+				{{#if defaultAccount}}				
+				<span class="badge digi-white-text"><i class="material-icons">star</i></span>
+				{{/if}}
+				</a></li>
+				{{/each}}
+			</ol>
+		</div>
+        </div>
+        <div class="card-action grey lighten-3" id="accountsSelectActionDiv">
+          <a class="btn-floating halfway-fab waves-effect waves-light digi-red" id="accountsSelectAddBtn" href="javascript:;" onclick="showAccountCreatePopup();"><i class="material-icons">add</i></a>
+          <a class="waves-effect waves-light btn digi-grey" onclick="closeAccountsPopup();"><i class="material-icons right">&#xE5C9;</i>Close</a>
+          <a class="waves-effect waves-light btn digi-red" href="{{js "getResourceMain('aapProfileAccountManagementUrl')"}}"><i class="material-icons left">settings</i>Manage</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+<!-- End  Accounts Select Template -->
+
+<!-- Account Create Template -->
+{{#if accountCreateView}}
+<div class="row" id="accountCreateDiv">
+    <div class="col s12 m12 l12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Create Account</span>
+          <!-- Msisdn -->
+          <div class="row no-margin">
+          	<div class="col s12 offset-l1 l10 input-field">
+          		<input type="tel"
+							data-filter-only-number="true" data-ride="msisdn" id="gsmAccountMsisdn" />
+						<i class="digi-flag-icon flag" data-ride="flag" data-flag=""></i>
+						
+						<label for="gsmAccountMsisdn">Msisdn</label>
+						
+						<span class="error" data-type="empty">You must enter a phone number</span>
+						
+						<span class="error" data-type="length">The phone number is not valid</span>
+          	</div>
+          </div>
+          
+			<div class="row no-margin">
+				<div class="col s12 offset-l1 l10 input-field">
+					<input type="text" maxlength="45" id="gsmAccountFriendlyName" />
+					<label for="gsmAccountFriendlyName">Friendly Name</label>
+				</div>
+			</div>
+	
+			
+			<div class="row no-margin">
+				<div class="col s12 offset-l1 l10 input-field">
+					<textarea id="gsmAccountComments" maxlength="128" class="materialize-textarea" ></textarea>
+					<label for="gsmAccountComments">Comments</label>
+				</div>
+			</div>
+        </div>
+        <div class="card-action grey lighten-3 right-align" id="accountsSelectActionDiv">
+          <a class="waves-effect waves-light btn digi-grey" onclick="closeAccountsPopup();"><i class="material-icons right">&#xE5C9;</i>Close</a>	
+          <a class="waves-effect waves-light btn digi-red" href="javascript:;" onclick="createUserGsmAccount();" id="createUserGsmAccountBtn"><i class="material-icons right">&#xE409;</i>Save Account</a>          
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+  <!-- End Account Create Template -->
+  
+  <!-- Account verify Template -->
+  {{#if accountVerifyView}}
+  <div class="row" id="accountVerifyDiv">
+    <div class="col s12 m12 l12">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Verify Account</span>
+		  <div class="row no-margin">
+				<div class="col s10 offset-l1 l10 input-field">
+					<input id="gsmAccountVerifyCode" maxlength="4" class="center-align" type="text" />
+					
+					<label for="code">Verification Code</label>
+					
+					<span class="error" data-type="empty">The code is required</span>
+					
+					<span class="error" data-type="invalid">The code is not valid</span>
+				</div>
+			</div>
+		</div>
+		<div class="card-action right-align digi-btn-container lighten-3 grey">
+		
+		<button type="button"
+			class="btn digi-btn-block-on-small waves-effect waves-light digi-grey"
+			data-action="cancel" onclick="closeAccountsPopup();">Close<i class="material-icons right">&#xE5C9;</i>
+		</button>
+		
+		<button type="button"
+			class="btn digi-btn-block-on-small waves-effect waves-light digi-red"
+			onclick="verifyGsmAccount({{accountId}})" style="margin-right: 10px;" id="validateUserGsmAccountBtn">Verify<i class="material-icons right">&#xE409;</i>
+		</button>		
+	</div>
+	</div>
+</div>
+</div>			
+  {{/if}}
+  <!-- End Account verify Template -->
+</script>
+<script id="alert-template" type="text/template7">
+	
+<div class="row no-margin" style="width: 100%;">
+	<div class="col s10 alert-message">{{message}}</div>
+	<div class="col s2">
+		<button class="right btn-floating white" data-dismiss="toast">
+			<i class="material-icons black-text">&#xE14C;</i>
+		</button>
+	</div>
+</div>
+</script>
+</head>
+<body class="digi-grey-background">	
+	<input type="hidden" id="userGuid" value="68B9E211ACCB416DE0534468950AA9B2" />
+	<input type="hidden" id="countryCode" value="PNG" />
+	
+	<header id="header" class="navbar-fixed digi-navbar">
+		<nav class="digi-red">
+			<div class="nav-wrapper container">
+				
+				<a href="javascript:void(0);" data-target="slideBar"
+					class="sidenav-trigger digi-menu-icon-link"><i
+					class="material-icons">&#xE5D2;</i></a>
+				<div class="left digi-layout-title-align title-div-fixed-width-when-small">
+					<h4 class="white-text digi-page-title">Available Plans</h4>
+				</div>
+				<ul class="right">
+					<li><a href="/" class="white-text"
+						style="font-weight: bold; font-size: 2rem;"><img
+							alt="Available Plans" src="/images/my_digicel-top.png" class="digi-logo"></a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<ul id="slideBar" class="sidenav digi-menu">
+		<li>
+			<div class="user-view digi-red">
+				
+				
+				<a href="/myAccountBalance"><img class="circle" src="/images/default-avatar.jpg" /></a>
+				<div class="row no-margin">
+					<div class="col s9 m9 l9 no-padding">
+						
+						<a href="/myAccountBalance" class="white-text name">67570523228 67570523228</a>
+					</div>
+					<div class="col l3 m3 s3 no-padding">
+						
+						<a href="javascript:;" class="white-text name" id="accountSelect" onclick="showAccountsSelectPopup();"><i class="material-icons white-text">repeat</i></a>
+					</div>
+				</div>
+				
+				<a href="/myAccountBalance" class="white-text msisdn" style="">67570523228</a>
+			</div>
+		</li>
+		
+		<li id="homeMenuItem"><a href="/" class="digi-grey-text"><img
+				src="/images/drawer_home_icon.png" /><span>Home</span></a></li>
+		
+			
+				
+					<li id="PlansMenuItem">
+						<ul class="collapsible collapsible-accordion">
+							<li id="PlansMenuSubItems"><a
+								class="digi-grey-text digi-side-menu-item collapsible-header">Plans<i
+									class="material-icons no-margin">&#xE5C5;</i></a>
+								<div class="collapsible-body">
+									<ul>
+										
+											
+											
+											<li id="activeplansMenuItem"><a
+												href="/activePlans" class="digi-grey-text"><img
+													src="/images/drawer_myplans_icon.png" /><span>Active Plans</span></a></li>
+										
+											
+											
+											<li id="availableplansMenuItem"><a
+												href="/availablePlans" class="digi-grey-text"><img
+													src="/images/drawer_myplans_icon.png" /><span>Available Plans</span></a></li>
+										
+									</ul>
+								</div></li>
+						</ul>
+					</li>
+						
+					<li id="topupMenuItem"><a href="/topUp"
+						class="digi-grey-text"><img src="/images/drawer_topup_icon.png" /><span>Top Up</span></a></li>
+						
+					<li id="myaccountbalanceMenuItem"><a href="/myAccountBalance"
+						class="digi-grey-text"><img src="/images/drawer_myprofile_icon.png" /><span>Account & Balances</span></a></li>
+						
+					<li id="accounttransferMenuItem"><a href="/accountBalanceTransfers"
+						class="digi-grey-text"><img src="/images/drawer_account_transfer.png" /><span>Offers for You</span></a></li>
+					
+					<li id="Additional ServicesMenuItem">
+						<ul class="collapsible collapsible-accordion">
+							<li id="Additional ServicesMenuSubItems"><a
+								class="digi-grey-text digi-side-menu-item collapsible-header">Additional Services<i
+									class="material-icons no-margin">&#xE5C5;</i></a>
+								<div class="collapsible-body">
+									<ul>
+								
+											
+											<li id="credityouMenuItem"><a
+												href="/sendCredits" class="digi-grey-text"><img
+													src="/images/drawer_send_credit_icon.png" /><span>Send Credit</span></a></li>
+										
+											
+											
+											<li id="creditmeMenuItem"><a
+												href="/creditMe" class="digi-grey-text"><img
+													src="/images/drawer_icme_icam.png" /><span>Request Credit</span></a></li>
+										
+											
+											
+											<li id="callmeMenuItem"><a
+												href="/callMe" class="digi-grey-text"><img
+													src="/images/drawer_icme_icam.png" /><span>Request Call Me</span></a></li>
+										
+											
+											
+											<li id="plangiftingMenuItem"><a
+												href="/planGifting" class="digi-grey-text"><img
+													src="/images/drawer-plan-gifting-icon.png" /><span>Plan Gifting</span></a></li>
+										
+									</ul>
+								</div></li>
+						</ul>
+					</li>
+				
+					
+					<li id="digicelsocialMenuItem"><a href="/social"
+						class="digi-grey-text"><img src="/images/drawer_digicel_social_icon.png" /><span>Live Chat</span></a></li>
+			
+			<li id="logoutMenuItem"><a href="/logout"
+				class="digi-grey-text"><img src="/images/drawer_logout_icon.png" /><span>Logout </span></a></li>
+		
+	</ul>
+
+	<div id="body-wrapper" class="container">
+		
+<script type="text/javascript">
+(function(target){
+	var resources = {
+			'activatePlanAskMsg': 'You have selected plan \u003Cstrong\u003E%s\u003C\/strong\u003E for the price of \u003Cstrong\u003E%s\u003C\/strong\u003E?',
+			'acceptPlanInvitationLbl': 'Accept',
+			'rejectPlanInvitationLbl': 'Reject',
+			'myPlansView.title.plan.activate': 'Activate Plan',
+			'myPlansView.title.additionalBundles': 'Add Bundle',
+			'myPlansView.title.error': 'Error',
+			'myPlansView.msg.activatePlan.success': 'Plan activation may take several minutes. Please wait until you receive confirmation text before using plan.',
+			'myPlansView.msg.activatePlan.error': 'Something went wrong while activating the current plan, please try again later.',
+			'myPlansView.msg.addBundle.success': 'Adding a bundle may take several minutes. You will receive a confirmation message when this has been completed.',
+			'myPlansView.msg.addBundle.error': 'Something went wrong while adding the bundle, please try again later.',
+			'myPlansView.msg.deactivate.success': 'Opting out of renewing this plan may take several minutes. You will receive a confirmation message when this has been completed.',
+			'myPlansView.msg.deactivate.error': 'Something went wrong while trying to opt out of your current plan, please try again later.',
+			'myPlansView.msg.renew.success': 'Plan renewal may take several minutes. You will receive a confirmation message when this has been completed.',
+			'myPlansView.msg.renew.error': 'Something went wrong while renewing your current plan, please try again later.',
+			'myPlansView.label.acceptInvitation': 'Accept',
+			'myPlansView.label.rejectInvitation': 'Reject',
+			'myPlansView.msg.giftPlan.accepted': 'Gifted plan accepted.',
+			'myPlansView.msg.giftPlan.declined': 'Gifted plan declined.',
+			'myPlansView.msg.giftPlan.accept.ask': 'Accept this gifted plan?',
+			'myPlansView.msg.giftPlan.decline.ask': 'Decline this gifted plan?',
+			'myPlansView.title.receivedGiftPlans': 'Received Gifted Plans',
+			'common.msg.processRequest.error': 'An error occurred while processing your request.',
+			'myPlansView.msg.unableToGetMemberFee.error': 'Please make sure you entered a valid, mobile number that belongs to your market and not a duplicate member.',
+			'myPlansView.label.plan.upgrade': 'Upgrade',
+			'myPlansView.label.plan.addBundle': 'Add',
+			'myPlansView.msg.memberBalanceNotSet.error': 'One of the members doesn\'t have a balance set.',
+			'myPlansView.msg.membersListUpdate.exceedLimit': 'Members Limit Exceeded.',
+			'myPlansView.msg.membersListUpdate.noChange': 'No updates on Members List.',
+			'myPlansView.title.plan.updateMembers': 'Update Members',
+			'myPlansView.title.memberMsisdn': 'Member Msisdn',
+			'myPlansView.title.fee': 'Fee',			
+			'myPlansView.title.addMember': 'Add Member',
+			'myPlansView.label.save': 'Save',	
+			'myPlansView.title.sharedPlanInvitations': 'Shared Plans Invitations',
+			'myPlansView.msg.planInvitation.decline.ask': 'Are you sure you want to decline this plan invitation?',
+			'myPlansView.msg.acceptSharedPlanInvitation.success': 'Shared plan invitation accepted.',
+			'myPlansView.msg.declineSharedPlanInvitation.success': 'Shared plan invitation declined.',
+			'activateUrl' :'/managePlan/activate',
+			'enterpriseActivateUrl' :'/myPlans/activate',
+			'activateLumataUrl' : '/managePlan/activateLumataPlan',
+			'transitUrl': '/managePlan/transit',
+			'addBundleUrl': '/managePlan/addBundle',
+			'deactivateUrl': '/managePlan/deactivate',
+			'renewUrl': '/managePlan/renew',
+			'managePlanUrl': '/managePlan',
+			'replyToInvitationUrl': '/managePlan/replyToInvitation',
+			'acceptGiftPlanUrl': '/giftPlan/accept',
+			'declineGiftPlanUrl': '/giftPlan/decline',
+			'replyToInvitationUrl': '/managePlan/replyToInvitation',
+			'confirmSharedPlanActivationUrl': '/managePlan/confirmSharedPlanActivation',
+			'manageSharedPlanMembersUrl': '/managePlan/sharedPlanMembers',
+			'sharedPlanMemberAdditionFeeUrl' : '/managePlan/sharedPlanMemberFee',
+			'saveSharedPlanMembersUrl': '/managePlan/saveMembers',
+			'activateSuccessStatus': 'SUCCESS',
+			'addBundleSuccessStatus': 'SUCCESS',
+			'deactivateSuccessStatus': 'SUCCESS',
+			'replyGiftPlanSuccessStatus': 'SUCCESS',
+			'renewSuccessStatus': 'SUCCESS',
+			'managePlanSuccessStatus': 'SUCCESS',
+			'sessionExpiredStatus': 'SESSION_EXPIRED',
+			'sessionExpiredMessage' : 'Your session has expired. Please click <a href="/">here</a> to login.'
+	};
+
+	/**
+	 * This function set a resource.
+	 */
+	target.setResource = function(key, value) {
+		resources[key] = value;
+	}
+
+	/**
+	 * This function is used to get resources used in the file myPlans.js
+	 * it's a way to pass server resources such a messages or model properties 
+	 * to js functions
+	 */
+	target.getResource = function(key, params) {
+		if(!params || params.length == 0)
+		{
+			return resources[key] || '';
+		}
+		else
+		{
+			var result = resources[key] || '';
+			$.each(params, function(index, param){
+				result = result.replace('%s', (param || ''));
+			});
+			return result;
+		}
+	}
+})(window);
+</script>
+<script type="text/javascript" src="/js/common-plans.min.js"></script>
+<link rel="stylesheet" href="/lib/css/swiper.min.css">
+<link rel="stylesheet" href="/lib/js/swiper.jquery.min.js">
+<link rel="stylesheet" href="/lib/css/nouislider.min.css">
+<script type="text/javascript" src="/lib/js/nouislider.min.js"></script>
+
+<script id="my-plans-plan-template" type="text/template7">
+	
+{{#unless mobile}}
+<div class="row valign-wrapper">
+	<div class="col s12 m12 l12">
+		<h5>{{categoryTitle}}</h5>
+	</div>
+</div>
+{{/unless}}
+
+{{#js_compare "this.plansData.length == 0"}}
+<div class="row valign-wrapper">
+	<div class="col s12 m12 l12">
+		You don't have any plans in this category at this time
+	</div>
+</div>	
+{{/js_compare}}
+
+{{#each plansData}}
+<div class="row valign-wrapper" id="plan-{{planId}}">
+	<div class="col s12 m12 l12">
+		<div class="digi-div-padding digi-card-border-bottom">
+			<div class="row no-margin">
+				<div class="col s12 m8 l8 no-padding">
+					<div class="row valign-wrapper">
+						<div class='col s{{lengthDiff icons||[] "10" "7"}} m5 l5'>
+							<h6 class="digi-black-text bold">{{title}}</h6>
+						</div>
+						<div class='col s{{lengthMax icons||[] "3"}} m7 l7 no-padding'>
+							{{#each icons}}
+								<img style="width: 1.7rem; height: 1.7rem;" src="{{this}}"></img>
+							{{/each}}
+						</div>
+						{{#if @root.mobile}}
+						<div class='col s{{lengthDiff icons||[] "5" "2"}} m5 l5'>
+							<h6 class="digi-black-text bold right">{{price}}</h6>
+						</div>			
+						{{/if}}								
+					</div>			
+					<div class="row">												
+						{{#each descriptions}}
+						<p>{{this}}</p>
+						{{/each}}
+					</div>
+				</div>
+				<div class="col s12 m4 l4 no-padding">
+					{{#unless @root.mobile}}
+					<div class="row no-margin">
+						<h6 class="digi-black-text bold right">{{price}}</h6>
+					</div>
+					{{/unless}}
+					<div class="row right-align">
+					{{#each buttons}}
+						<button
+						class="digi-btn-rounded-corners  waves-effect waves-light digi-red no-border digi-upper-case digi-red no-border"
+							{{attrs}} style="width: 80%;">{{text}}</button>
+					{{/each}}
+					</div>
+				</div>
+			</div>								
+		</div>
+	</div>
+</div>
+{{/each}}
+
+</script>
+<script id="my-plans-category-template" type="text/template7">
+	
+
+
+{{#if mobile}}
+<ul class="collapsible" id="categories-list" data-collapsible="accordion">
+{{#each categories}}
+	<li>
+	  <div class="collapsible-header"><div class="row digi-grey-text" style="width: 100%;"><div class="col s11">{{label}}</div><div class="col s1 right"><i class="material-icons">expand_more</i></div></div></div>
+	  <div class="collapsible-body">{{categoryPlansHtml}}</div>
+	  
+	</li>
+{{/each}}
+</ul>
+{{else}}
+{{#each categories}}
+<div class="row valign-wrapper">
+	<div class="col s12 m12 l12">
+		<div class="digi-div-padding digi-card-border-bottom">
+			<div class="row no-margin">
+				<div class="col s12 m12 l12 no-padding digi-black-text bold">
+					<a href="javascript:;" onclick="setCurrentSelection(this); displayPlansForGroup({{id}})" class="digi-grey-text" id="category-{{id}}">
+						{{label}}
+					</a>											
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{/each}}
+{{/if}}
+</script>
+<script id="manage-plan-template" type="text/template7">
+	
+
+
+<div class="digi-cards-margin-top" id="plansRow">
+	<div class="row">
+	
+		<!-- Manage Plan Card -->
+		<div class='col s12 m6 l6'>
+			<div class="card digi-cards-shadow ">
+				<h5 class="digi-red no-margin white-text left-align digi-plan-header-wide">
+					Manage Plan
+				</h5>
+				<div class="card-content">
+					<div id="manage-plans-div">
+						<div class="row">
+							<h5 class="digi-red-text valign-wrapper">{{name}}</h5>
+						</div>
+					</div>
+					<div class="row">
+						<p>expires on: {{expiryDate}}</p>
+					</div>
+					<br />
+					<div class="row">
+						<p>
+							{{description}}
+						</p>
+					</div>
+					<div class="row">
+						{{#if canDeactivate}}
+						<div class='col s12 m{{divideByColLength "12" "6" "canRenew,isShared"}} l{{divideByColLength "12" "6" "canRenew,isShared"}}'>
+							<button id="deactivate" type="button"
+							onclick="deactivateSubscription(this);"
+							data-subscription-id="{{subscriptionId}}"
+							data-deactivate-label="{{escape deactivateLabel}}"
+							data-deactivate-message="{{escape deactivateMessage}}"
+							data-name="{{escape name}}"
+							data-plan-id={{id}}
+							class="digi-btn-rounded-corners  waves-effect waves-light digi-red no-border digi-upper-case digi-red no-border no-padding" style="width: 90%;">{{deactivateLabel}}</button>
+						</div>
+						{{/if}} 
+						{{#if canRenew}}
+						<div class='col s12 m{{divideByColLength "12" "6" "canDeactivate,isShared"}} l{{divideByColLength "12" "6" "canDeactivate,isShared"}}'>
+							<button id="renew" type="button" onclick="renewSubscription(this);"
+								data-subscription-id="{{subscriptionId}}"
+								data-renew-label="{{escape renewLabel}}"
+								data-renew-nessage="{{escape renewMessage}}"
+								data-name="{{escape name}}"
+								data-plan-id={{id}}
+								class="digi-btn-rounded-corners  waves-effect waves-light digi-red no-border digi-upper-case digi-red no-border no-padding" style="width: 90%;">{{renewLabel}}</button>
+						</div>
+						{{/if}}
+						{{#if isShared}}
+						<div class='col s12 m{{divideByColLength "12" "6" "canDeactivate,canRenew"}} l{{divideByColLength "12" "6" "canDeactivate,canRenew"}}'>
+							<button id="members" type="button" onclick="manageSharedPlanMembers(this);"
+								data-id ="{{id}}"
+								data-name="{{escape name}}"
+								class="digi-btn-rounded-corners  waves-effect waves-light digi-red no-border digi-upper-case digi-red no-border no-padding" style="width: 90%;">Members</button>
+						</div>
+						{{/if}}
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+		{{#if hasTransitPlans}}
+		<!-- Change Plan Card -->
+		<div class="col s12 m6 l6">			
+			<div class="card digi-cards-shadow">
+				<h5 class="digi-red no-margin white-text left-align digi-plan-header-wide">
+					Upgrade to
+				</h5>
+				<div class="card-content">
+					<div id="change-plans-div">
+						{{#each transitPlans}}
+						<div class="row valign-wrapper" id="transit-{{id}}">
+							<div class="col s12 m12 l12">
+								<div class="digi-div-padding digi-card-border-bottom">
+									<div class="row no-margin">
+										<div class="col s12 m12 l12 no-padding digi-black-text bold">
+											<h5>
+												<a href="javascript:;" onclick="transitPlan(this);" data-id="{{id}}" data-to="{{../id}}" {{#if iconParamUrls}} data-icons='{{join iconParamUrls delimiter=","}}'{{/if}}
+													data-message="{{escape ../transitPlanMessage}}" data-popup-template-id="upgrade-plan-popup-template"
+													data-name="{{escape name}}" data-price="{{price}} {{tax}}" data-description="{{escape description}}"
+							 						class="digi-grey-text">
+													{{name}}
+												</a>
+											</h5>																						
+										</div>
+									</div>
+									<div class="row no-margin">
+										<div class="col s12 m12 l12 no-padding digi-grey-text">
+											<p>{{price}}&nbsp;{{tax}}</p>																						
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+		</div>
+		{{/if}}
+
+	</div>
+</div>
+</script>
+<script id="manage-sharedplan-members-template" type="text/template7">
+
+<input type="hidden" id="maxAllowedMembers" value="{{maxAllowedMembers}}"/>
+
+<div class="container digi-large">	
+	<div class="card digi-cards-shadow">
+		<h5 class="digi-red no-margin white-text left-align digi-plan-header-wide">
+			Max Allowed Members: {{maxAllowedMembers}}
+		</h5>
+		<div class="card-content">
+			<div class="row">
+				Add and remove shared plans members
+			</div>
+			<div id="members">
+			{{#if members}}
+				{{#members}}
+					<div class="row valign-wrapper" id="current-member-{{this}}">
+						<div class="col s12 m12 l12">
+							<div class="digi-div-padding digi-card-border-bottom">
+								<div class="row no-margin">
+									<div class="col s2 m1 l1"><a href="javascriptL:;" onclick="removeCurrentMember({{this}})"><i class="material-icons digi-white digi-red-text">remove_circle</i></a></div>
+									<div class="col s10 m11 l11 no-padding digi-black-text bold">
+										{{this}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>								
+				{{/members}}
+				</div>
+				<div class="row valign-wrapper" id="addMemberButtonDiv">
+						<div class="col s12 m12 l12">
+							<div class="digi-div-padding digi-card-border-bottom">
+								<div class="row no-margin">
+									<div class="col s2 m1 l1">
+										<a href="javascript:;" onclick="addApprovedMember({{id}})">
+											<i class="material-icons digi-white digi-red-text">add_circle</i>
+										</a>
+									</div>										
+									<div class="col s10 m11 l11 no-padding digi-grey-soft-text">
+										Add Another Approved Member
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			{{/if}}
+			<div class="center-align">
+				<button type="button" onclick="saveMembers({{id}});"
+							class="digi-btn-rounded-corners  waves-effect waves-light digi-red no-border digi-upper-case digi-red no-border">Save Changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</script>
+<script id="confirm-shared-plan-activation-template" type="text/template7">
+	
+
+
+<!-- The commented lines are kept for forward-compatibility, i.e. awaiting updates on Cain that allow managing individual plan members -->
+<div class="digi-cards-margin-top" id="plansRow">
+	<div class="row">
+	
+		<!-- Current members Card -->
+		<div class='col s12 m6 l6'>
+			<div class="card digi-cards-shadow ">
+				<h5 class="digi-red no-margin white-text left-align digi-plan-header-wide">
+					Add members to plan
+				</h5>				
+				<div class="card-content">
+				<div class="row">
+					<div class="col s4 m2 l2">
+						<div class="switch">
+					    <label>					      
+					      <input type="checkbox" id="addMembersChb">
+					      <span class="lever"></span>					      
+					    </label>
+					  </div>
+					</div>
+					<div class="col s8 m10 l10">
+						<h6>Add Previous Members</h6>
+					</div>
+				</div>
+				
+					<div id="curr-members-div"></div>
+					<div class="row">
+						<div class="col s12 m6 l6 center-align">
+							<button onclick='activatePlan("activate-{{id}}");'
+									data-id = "{{id}}"
+									data-is-shared = "true"
+									data-activate-message="{{activateMessage}}"
+									data-button-text="{{buttonText}}" 
+									data-is-carousel="false"
+									id="activate-{{id}}"
+							class="digi-btn-rounded-corners  waves-effect waves-light digi-red no-border digi-upper-case digi-red no-border no-padding" style="width: 90%;">Activate</button>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+		<!-- Previous members Card -->
+		<div class="col s12 m6 l6">			
+			<div class="card digi-cards-shadow">
+				<h5 class="digi-red no-margin white-text left-align digi-plan-header-wide">
+					Previous members
+				</h5>
+				<div class="card-content">
+					<div id="previous-members-div">
+						{{#each members}}
+						<div class="row valign-wrapper" id="previous-member-{{this}}">
+							<div class="col s12 m12 l12">
+								<div class="digi-div-padding digi-card-border-bottom">
+									<div class="row no-margin">
+										<!-- <div class="col s2 m1 l1"><a href="javascript:;" onclick="addSharedPreviousMember({{this}})"><i class="material-icons digi-white digi-red-text">add_circle</i></a></div> -->
+											<div class="col s12 m12 l12 no-padding digi-black-text bold">
+											{{this}}
+											</div>
+										</div>
+									</div>
+								</div>
+						</div>
+						{{/each}}
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+</script>
+<script id="upgrade-plan-popup-template" type="text/template7">
+	<div>
+		<div class="row">
+			<div class="col s12 m12 l12">
+				<h5 class="digi-red-text bold">{{name}}</h5>
+			</div>			
+		</div>		
+		<div class="row no-padding no-margin">
+			<div class="col s6 m4 l4 left-align no-padding digi-grey-text">{{price}}</div>
+			<div class="col s6 m8 l8 right-align">
+				{{#each icons}}
+					<img style="width: 1.7rem; height: 1.7rem;" src="{{this}}"></img>
+				{{/each}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12 m12 l12 digi-text-left-on-med-and-up">
+				<p class="digi-black-text bold">{{description}}</p>
+			</div>
+		</div>		
+	</div>
+</script>
+<script id="new-member-template" type="text/template7">
+<div class="row valign-wrapper" id="new-member-{{msisdn}}">
+	<div class="col s12 m12 l12">
+		<div class="digi-div-padding digi-card-border-bottom">
+			<div class="row no-margin">
+				<div class="col s2 m1 l1"><a href="javascript:;" onclick="removeNewMember({{msisdn}})"><i class="material-icons digi-white digi-red-text">remove_circle</i></a></div>
+					<div class="col s10 m11 l11 no-padding digi-black-text bold">
+					{{msisdn}}
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</script>
+<script id="shared-member-template" type="text/template7">
+<div class="row valign-wrapper" id="{{#if isAdd}}current-member-{{msisdn}}{{else}}previous-member-{{msisdn}}{{/if}}">
+	<div class="col s12 m12 l12">
+		<div class="digi-div-padding digi-card-border-bottom">
+			<div class="row no-margin">
+				<div class="col s2 m1 l1"><a href="javascript:;" onclick="{{#if isAdd}}removeSharedPreviousMember({{msisdn}}){{else}}addSharedPreviousMember({{msisdn}}){{/if}}"><i class="material-icons digi-white digi-red-text">{{#if isAdd}}remove_circle{{else}}add_circle{{/if}}</i></a></div>
+					<div class="col s10 m11 l11 no-padding digi-black-text bold">
+					{{msisdn}}
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</script>
+<script id="add-approved-member-popup" type="text/template7">
+	<div class="row valign-wrapper digi-red-text bold">
+		<h6 id="warning-msg"></h6>
+	</div>
+	<div class="row valign-wrapper" id="member-{{memberId}}">
+						<div class="col s12 m12 l12">
+							<div class="digi-div-padding">
+								<div class="row" id="msisdn-holder-{{memberId}}">									
+									<div class="col s12 m8 l8 no-padding digi-black-text bold">
+										<input type="number" id="msisdn-{{memberId}}" placeholder='Member Msisdn' class="number-no-scroll-input" />										
+									</div>
+									<div class="col s12 m4 l4">
+										<a href="javascript:;" onclick="setMemberQuota({{memberId}}, {{planId}});" style="padding-left: 20px !important; padding-right: 20px !important"
+											class="digi-btn-rounded-corners  waves-effect waves-light digi-grey-soft digi-white-text no-border digi-upper-case">Set Balance</a>										
+									</div>
+									</div>
+									<div class="row" id="quota-fee-{{memberId}}" style="visibility: hidden;">
+									<div class="col s12 m12 l12">
+										<h5 class="digi-red-text left-align">Quota</h5>										
+										<div id="slider-{{memberId}}" class="digi-red"></div>
+										<h6 id="slider-value-{{memberId}}" class="digi-grey-text center-align"></h6>
+									</div>
+									<div class="col s12 m12 l12 left-align" id="quota-{{memberId}}"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+</script>
+
+<div class="digi-cards-margin-top" id="plansRow">
+	<div class="row">
+	
+		
+			
+				<!-- Groups Card -->
+				
+				<div class="col s12 m6 l6">
+					<div class="card digi-cards-shadow">
+						
+						<div class="card-content ">
+							<div id="categories-div"></div>
+						</div>
+					</div>
+				</div>
+
+				
+					<!-- Plans Card -->
+					<div class="col s12 m6 l6">
+						<div class="card digi-cards-shadow">
+							<div class="card-content">
+								<div id="plans-div"></div>
+							</div>
+						</div>
+					</div>
+				
+			
+
+			
+		
+
+	</div>
+</div>
+
+<div id="managePlan" style="display: none;">
+	<div class="card-panel no-padding digi-card-without-shadow">
+		<div id="back-to-myplans-row" class="row">
+			<div class="col s12">
+				<button type="button" onclick="showMyPlans();"
+					class="btn waves-effect digi-red">
+					<i class="material-icons left">arrow_back</i>
+					Back To My Plans 
+				</button>
+			</div>
+		</div>
+		<div id="manage-plan-row"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+var plansModel = {"colorUtil":{"colorList":["0","1","2"]},"carouselPlansCategory":{"title":"Promos","carousel":true,"carouselPlansTitle":"Promos"},"compatiblePlansCategory":{"title":"Available Plans","carousel":false,"planGroups":[{"label":"1TOK Combo Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_data_plans.png","showHeader":true,"plans":[{"id":"17952","hashId":264,"name":"K6_35Min_35SMS_65MB_SP","description":"For only K5, get 24 hrs of 35Min voice call to Digicel numbers. Plus you get 35 SMS and 65MB for browsing. This plan is valid for 24 hours.","price":"6.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K5 for 35Min,35SMS,65MB","overview":"- Validity: 24 hrs\n- Voice: 35Min voice calls for only Digicel calls\n- SMS: 35SMS\n- Data: 65MB for Digicel only"},{"id":"17962","hashId":265,"name":"K8_UnlimitedMin_70SMS_100MB_SP","description":"For only K7, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 70 SMS and 85MB for browsing. This plan is valid for 24 hours.","price":"8.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K7 for UNLTD Mins,70SMS,85MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 70SMS\n- Data: 85MB for Digicel only"},{"id":"17963","hashId":266,"name":"K8_UnlimitedMin_90SMS_100MB_SP","description":"For only K8, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 90 SMS and 100MB for browsing. This plan is valid for 24 hours.","price":"8.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K8 for UNLTD Mins,90SMS,100MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 90SMS\n- Data: 100MB for Digicel only"},{"id":"17964","hashId":267,"name":"K9_UnlimitedMin_100SMS_120MB_SP","description":"For only K9, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 100 SMS and 120MB for browsing. This plan is valid for 24 hours.","price":"9.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K9 for UNLTD Mins,100SMS,120MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 100SMS\n- Data: 120MB for Digicel only"},{"id":"17972","hashId":266,"name":"K4_31Min_45SMS_20MB_FP","description":"For only K4, get 24 hrs of 31Min voice call to Digicel numbers. Plus you get 45 SMS and 20MB for browsing. This plan is valid for 24 hours.","price":"4.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K4 for 31Min,45SMS,20MB","overview":"- Validity: 24 hrs\n- Voice: 31Min voice calls for only Digicel calls\n- SMS: 45SMS\n- Data: 20MB for Digicel only"},{"id":"17974","hashId":268,"name":"K6_60Min_90SMS_20MB_FP","description":"For only K6, get 24 hrs of 60Min voice call to Digicel numbers. Plus you get 90 SMS and 20MB for browsing. This plan is valid for 24 hours.","price":"6.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K6 for 60Min,90SMS,20MB","overview":"- Validity: 24 hrs\n- Voice: 60Min voice calls for only Digicel calls\n- SMS: 90SMS\n- Data: 20MB for Digicel only"},{"id":"17983","hashId":268,"name":"K8_UnlimitedMin_150SMS_20MB_FP","description":"For only K8, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 150 SMS and 20MB for browsing. This plan is valid for 24 hours.","price":"8.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K8 for UNLTD Mins,150SMS,20MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 150SMS\n- Data: 20MB for Digicel only"},{"id":"17984","hashId":269,"name":"K9_UnlimitedMin_150SMS_20MB_FP","description":"For only K9, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 150 SMS and 30MB for browsing. This plan is valid for 24 hours.","price":"9.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K9 for UNLTD Mins,150SMS,30MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 150SMS\n- Data: 30MB for Digicel only"},{"id":"17985","hashId":270,"name":"K10_UnlimitedMin_170SMS_30MB_FP","description":"For only K10, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 170 SMS and 30MB for browsing. This plan is valid for 24 hours.","price":"10.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K10 for UNLTD Mins,170SMS,30MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 170SMS\n- Data: 30MB for Digicel only"},{"id":"18185","hashId":263,"name":"K2_8mins_20sms 1day_Default","description":"For only K2, get 24 hrs of 8Mins voice call to Digicel numbers. Plus you get 20 SMS. This plan is valid for 24 hours.","price":"2.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K2 for 8Mins,20SMS","overview":"- Validity: 24 hrs\n- Voice: 8Min voice calls for only Digicel calls\n- SMS: 20SMS"},{"id":"18188","hashId":266,"name":"K25_60min_60sms_300MB_7 day_Default","description":"Activate 7 Day K25 Combo plan and get 60mins for on-net calls (Digicel calls only), 300MB \u0026amp; 60 SMS for on-net only. Plan is valid for 7 days.\nConditions:\n- Multiple subscription is allowed for this plan. No auto-renew included.","price":"25.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7D K25 Combo","overview":"- Talk: 60mins (on-net only)\n- Data: 300MB\n- SMS: 60SMS (on-net only)\n- Valid: 7 days"},{"id":"18189","hashId":267,"name":"K55_80min_5mins_80sms_750MB_7 day_Default","description":"Activate 7 Day K55 Combo plan and get 80mins for on-net \u0026amp; off-net calls (Digicel \u0026amp; other network calls), 750MB \u0026amp; 80 SMS for both on-net \u0026amp; off-net. Plan is valid for 7 days.\nConditions:\n- Multiple subscription is allowed for this plan. No auto-renew included.","price":"55.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7D K55 Combo","overview":"- Talk: 80mins (on-net/off-net)\n- Data: 750MB\n- SMS: 80SMS (on-net/off-net)\n- Valid: 7 days"},{"id":"18190","hashId":259,"name":"K110_160mins_20minsInt_120sms_1.5GB_30 day_Default","description":"Activate 30 Day K110 Combo plan and get 160mins for on-net \u0026amp; off-net calls (Digicel \u0026amp; other network calls), 1.5GB data, 120 SMS for both on-net \u0026amp; off-net. You also get 20mins for international calls to countries in Zone 1 only. Plan is valid for 30 days.\n Conditions:\n- Multiple subscription is allowed for this plan. No auto-renew included.","price":"110.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30D K110 Combo","overview":"- Talk: 160mins (on-net/off-net)\n- Data: 1.5GB\n- SMS: 120SMS (on-net/off-net)\n- Valid: 30 days\n- Extra: 20mins Int\u0027l calls (Zone 1 countries)"},{"id":"18344","hashId":260,"name":"K235_350mins_35minsInt_350sms_7GB_30 day","description":"Activate 30 Day K235 Combo plan and get 350mins for on-net \u0026amp; off-net calls (Digicel \u0026amp; other network calls), 7GB data, 350 SMS for both on-net \u0026amp; off-net. You also get 35mins for international calls to countries in Zone 1 only. Plan is valid for 30 days.\nConditions:\n- Multiple subscription is allowed for this plan. No auto-renew included.","price":"235.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30D K235 Combo","overview":"- Talk: 350mins (on-net/off-net)\n- Data: 7GB\n- SMS: 350SMS (on-net/off-net)\n- Valid: 30 days\n- Extra: 35mins Int\u0027l calls (Zone 1 countries)"}],"planGroupType":"Compatible_Plans"},{"label":"Data Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_data_plans.png","showHeader":true,"plans":[{"id":"16226","hashId":257,"name":"1 Day 60MB","description":"Activate this 1 Day data plan for only K3.00 and get 60MB data. This Plan is valid for 24hrs.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 1 Day 60MB plan","price":"3.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day 60MB","overview":"- Data: 60MB\n- Valid: 24hrs"},{"id":"18205","hashId":256,"name":"1 Day 200MB","description":"Activate this 1 Day data plan for only K7.00 and get 200MB data. This Plan is valid for 24hrs.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 1 Day 200MB plan","price":"7.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day 200MB","overview":"- Data: 200MB\n- Valid: 24hrs"},{"id":"16228","hashId":259,"name":"1 Day 400MB","description":"Activate this 1 Day data plan for only K12.00 and get 400MB data. This Plan is valid for 24hrs.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 1 Day 400MB plan","price":"12.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day 400MB","overview":"- Data: 400MB\n- Valid: 24hrs"},{"id":"16229","hashId":260,"name":"1 Day 1.2GB","description":"Activate this 1 Day data plan for only K25.00 and get 1.2GB data. This Plan is valid for 24hrs.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 1 Day 1.2GB plan","price":"25.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day 1.2GB","overview":"- Data: 1.2GB\n- Valid: 24hrs"},{"id":"18207","hashId":258,"name":"3 Day 300MB","description":"Activate this 3 Day data plan for only K10.00 and get 300MB data. This Plan is valid for 3 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 3 Day 300MB plan","price":"10.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"3 Day 300MB","overview":"- Data: 300MB\n- Valid: 3 days"},{"id":"18208","hashId":259,"name":"3 Day 500MB","description":"Activate this 3 Day data plan for only K16.00 and get 500MB data. This Plan is valid for 3 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 3 Day 500MB plan","price":"16.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"3 Day 500MB","overview":"- Data: 500MB\n- Valid: 3 days"},{"id":"16452","hashId":258,"name":"3 Day 1.2GB","description":"Activate this 3 Day data plan for only K35.00 and get 1.2GB data. This Plan is valid for 3 days.\n Conditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 3 Day 1.2GB plan","price":"35.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"3 Day 1.2GB","overview":"- Data: 1.2GB\n- Valid: 3 days"},{"id":"18209","hashId":260,"name":"7 Day 600MB","description":"Activate this 7 Day data plan for only K18.00 and get 600MB data. This Plan is valid for 7 days.\n Conditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 7 Day 600MB plan","price":"18.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7 Day 600MB","overview":"- Data: 600MB\n- Valid: 7 days"},{"id":"18210","hashId":252,"name":"7 Day 1GB","description":"Activate this 7 Day data plan for only K30.00 and get 1GB data. This Plan is valid for 7 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 7 Day 1GB plan","price":"30.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7 Day 1GB","overview":"- Data: 1GB\n- Valid: 7 days"},{"id":"18211","hashId":253,"name":"30 Day 3GB","description":"Activate this 30 Day data plan for only K85.00 and get 3GB data. This Plan is valid for 30 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 30 Day 1.2GB plan","price":"85.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30 Day 3GB","overview":"- Data: 3GB\n- Valid: 30 days"},{"id":"18212","hashId":254,"name":"30 Day 5GB","description":"Activate this 30 Day data plan for only K130.00 and get 5GB data. This Plan is valid for 30 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 30 Day 5GB plan","price":"130.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30 Day 5GB","overview":"- Data: 5GB\n- Valid: 30 days"},{"id":"18347","hashId":263,"name":"30 Day 20GB","description":"Activate this 30 Day data plan for only K230.00 and get 10GB data. This Plan is valid for 30 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 30 Day 20GB plan","price":"230.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30 Day 20GB","overview":"- Data: 20GB\n- Valid: 30 days"}],"planGroupType":"Compatible_Plans"},{"label":"Hour Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_voice_plans.png","showHeader":true,"plans":[{"id":"16451","hashId":257,"name":"Hour Plan_250MB","description":"This plan offers 500MB of data and cost only K3. The plan is only valid for 60 mins. Plan is only available to MyDigicel App users. No Auto Renew for this plan. Bundle rolls over, meaning if you buy this same plan within 60 mins validity, remaining MB will be added to the new 1 Hour plan PLUS validity extends.","price":"3.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 HOUR 500MB PLAN","overview":"- Validity: 60 mins\n- Data: 500MB for other browsing\n- Only available to MyDigicel App users"}],"planGroupType":"Compatible_Plans"},{"label":"Night Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_voice_plans.png","showHeader":true,"plans":[{"id":"18348","hashId":264,"name":"Night_Hour_Plan_5GB (12am -5am)","description":"Activate this Night Plan for only K8 and get 4GB data to use between 12am-5am.\n Conditions:\n- No Auto Renew for this plan.\n- This data plan can be purchased anytime, but only be used from 12am-5am.","price":"15.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"4GB Night Pass","overview":"- Data: 4GB\n- Valid: 12am-5am"},{"id":"18304","hashId":256,"name":"K2 70Mins Night Plan 11pm-6am","description":"Activate this Voice Night Pass for only K2 and get 70mins for Digicel calls only. You can buy this plan anytime, however can only use from 11pm-6am.\nConditions:\n- No auto-renew for this plan.\n- This voice plan can be purchased anytime, but only be used from 11pm-6am.\n- Voice mins rolls over, meaning if you buy this same pass, remaining mins will be added to the new Voice Night Pass.","price":"2.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"Night Pass","overview":"- Talk: 70mins on-net only (Digicel calls only)\n- Valid: 11pm-6am"}],"planGroupType":"Compatible_Plans"},{"label":"Social Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_voice_plans.png","showHeader":true,"plans":[{"id":"16306","hashId":256,"name":"1 Day Social Plan","description":"Activate this 1 Day Social Pass for only K3.00 and get 24hrs of unlimited access to Facebook, Instagram \u0026amp; Twitter. This plan is valid for 24hrs.\nConditions:\n- Plan has no auto-renew included.\n- Social Pass has zero MB attached, as it is only time-based and will only give unlimited access to the 3 social sites.","price":"3.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day Social","overview":"- Data: 0MB for other browsing\n- Extra: Access to Facebook, Instagram \u0026 Twitter\n- Valid: 24hrs"},{"id":"16307","hashId":257,"name":"7 Day Social Plan","description":"Activate this 7 Day Social Pass for only K20.00 and get 7 days of unlimited access to Facebook, Instagram \u0026amp; Twitter. This plan is valid for 7 days.\nConditions:\n- Plan has no auto-renew included.\n- Social Pass has zero MB attached, as it is only time-based and will only give unlimited access to the 3 social sites.","price":"20.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7 Day Social","overview":"- Data: 0MB for other browsing\n- Extra: Access to Facebook, Instagram \u0026 Twitter\n- Valid: 7 days"}],"planGroupType":"Compatible_Plans"}]},"receivedGiftPlansCategory":{"carousel":false},"categorySelector":["Available Plans"],"subCategorySelector":["1TOK Combo Plans","Data Plans","Hour Plans","Night Plans","Social Plans"],"pshEndPoint":"https://product-staging.digicelgroup.com/digicel-service-psh/newTransaction?transactionType\u003d1\u0026requester\u003dhttps%3A%2F%2Fmydigicel.digicelgroup.com%3A443%2FcreditCardPayStatus\u0026planId\u003d","creditCardEnable":false,"showPlansDescriptionOnMobile":true,"mobile":false,"planGroups":[{"label":"1TOK Combo Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_data_plans.png","showHeader":true,"plans":[{"id":"17952","hashId":264,"name":"K6_35Min_35SMS_65MB_SP","description":"For only K5, get 24 hrs of 35Min voice call to Digicel numbers. Plus you get 35 SMS and 65MB for browsing. This plan is valid for 24 hours.","price":"6.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K5 for 35Min,35SMS,65MB","overview":"- Validity: 24 hrs\n- Voice: 35Min voice calls for only Digicel calls\n- SMS: 35SMS\n- Data: 65MB for Digicel only"},{"id":"17962","hashId":265,"name":"K8_UnlimitedMin_70SMS_100MB_SP","description":"For only K7, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 70 SMS and 85MB for browsing. This plan is valid for 24 hours.","price":"8.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K7 for UNLTD Mins,70SMS,85MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 70SMS\n- Data: 85MB for Digicel only"},{"id":"17963","hashId":266,"name":"K8_UnlimitedMin_90SMS_100MB_SP","description":"For only K8, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 90 SMS and 100MB for browsing. This plan is valid for 24 hours.","price":"8.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K8 for UNLTD Mins,90SMS,100MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 90SMS\n- Data: 100MB for Digicel only"},{"id":"17964","hashId":267,"name":"K9_UnlimitedMin_100SMS_120MB_SP","description":"For only K9, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 100 SMS and 120MB for browsing. This plan is valid for 24 hours.","price":"9.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K9 for UNLTD Mins,100SMS,120MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 100SMS\n- Data: 120MB for Digicel only"},{"id":"17972","hashId":266,"name":"K4_31Min_45SMS_20MB_FP","description":"For only K4, get 24 hrs of 31Min voice call to Digicel numbers. Plus you get 45 SMS and 20MB for browsing. This plan is valid for 24 hours.","price":"4.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K4 for 31Min,45SMS,20MB","overview":"- Validity: 24 hrs\n- Voice: 31Min voice calls for only Digicel calls\n- SMS: 45SMS\n- Data: 20MB for Digicel only"},{"id":"17974","hashId":268,"name":"K6_60Min_90SMS_20MB_FP","description":"For only K6, get 24 hrs of 60Min voice call to Digicel numbers. Plus you get 90 SMS and 20MB for browsing. This plan is valid for 24 hours.","price":"6.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K6 for 60Min,90SMS,20MB","overview":"- Validity: 24 hrs\n- Voice: 60Min voice calls for only Digicel calls\n- SMS: 90SMS\n- Data: 20MB for Digicel only"},{"id":"17983","hashId":268,"name":"K8_UnlimitedMin_150SMS_20MB_FP","description":"For only K8, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 150 SMS and 20MB for browsing. This plan is valid for 24 hours.","price":"8.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K8 for UNLTD Mins,150SMS,20MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 150SMS\n- Data: 20MB for Digicel only"},{"id":"17984","hashId":269,"name":"K9_UnlimitedMin_150SMS_20MB_FP","description":"For only K9, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 150 SMS and 30MB for browsing. This plan is valid for 24 hours.","price":"9.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K9 for UNLTD Mins,150SMS,30MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 150SMS\n- Data: 30MB for Digicel only"},{"id":"17985","hashId":270,"name":"K10_UnlimitedMin_170SMS_30MB_FP","description":"For only K10, get 24 hrs of UNLTD voice call to Digicel numbers. Plus you get 170 SMS and 30MB for browsing. This plan is valid for 24 hours.","price":"10.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K10 for UNLTD Mins,170SMS,30MB","overview":"- Validity: 24 hrs\n- Voice: Unlimited voice calls for only Digicel calls\n- SMS: 170SMS\n- Data: 30MB for Digicel only"},{"id":"18185","hashId":263,"name":"K2_8mins_20sms 1day_Default","description":"For only K2, get 24 hrs of 8Mins voice call to Digicel numbers. Plus you get 20 SMS. This plan is valid for 24 hours.","price":"2.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"K2 for 8Mins,20SMS","overview":"- Validity: 24 hrs\n- Voice: 8Min voice calls for only Digicel calls\n- SMS: 20SMS"},{"id":"18188","hashId":266,"name":"K25_60min_60sms_300MB_7 day_Default","description":"Activate 7 Day K25 Combo plan and get 60mins for on-net calls (Digicel calls only), 300MB \u0026amp; 60 SMS for on-net only. Plan is valid for 7 days.\nConditions:\n- Multiple subscription is allowed for this plan. No auto-renew included.","price":"25.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7D K25 Combo","overview":"- Talk: 60mins (on-net only)\n- Data: 300MB\n- SMS: 60SMS (on-net only)\n- Valid: 7 days"},{"id":"18189","hashId":267,"name":"K55_80min_5mins_80sms_750MB_7 day_Default","description":"Activate 7 Day K55 Combo plan and get 80mins for on-net \u0026amp; off-net calls (Digicel \u0026amp; other network calls), 750MB \u0026amp; 80 SMS for both on-net \u0026amp; off-net. Plan is valid for 7 days.\nConditions:\n- Multiple subscription is allowed for this plan. No auto-renew included.","price":"55.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7D K55 Combo","overview":"- Talk: 80mins (on-net/off-net)\n- Data: 750MB\n- SMS: 80SMS (on-net/off-net)\n- Valid: 7 days"},{"id":"18190","hashId":259,"name":"K110_160mins_20minsInt_120sms_1.5GB_30 day_Default","description":"Activate 30 Day K110 Combo plan and get 160mins for on-net \u0026amp; off-net calls (Digicel \u0026amp; other network calls), 1.5GB data, 120 SMS for both on-net \u0026amp; off-net. You also get 20mins for international calls to countries in Zone 1 only. Plan is valid for 30 days.\n Conditions:\n- Multiple subscription is allowed for this plan. No auto-renew included.","price":"110.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30D K110 Combo","overview":"- Talk: 160mins (on-net/off-net)\n- Data: 1.5GB\n- SMS: 120SMS (on-net/off-net)\n- Valid: 30 days\n- Extra: 20mins Int\u0027l calls (Zone 1 countries)"},{"id":"18344","hashId":260,"name":"K235_350mins_35minsInt_350sms_7GB_30 day","description":"Activate 30 Day K235 Combo plan and get 350mins for on-net \u0026amp; off-net calls (Digicel \u0026amp; other network calls), 7GB data, 350 SMS for both on-net \u0026amp; off-net. You also get 35mins for international calls to countries in Zone 1 only. Plan is valid for 30 days.\nConditions:\n- Multiple subscription is allowed for this plan. No auto-renew included.","price":"235.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30D K235 Combo","overview":"- Talk: 350mins (on-net/off-net)\n- Data: 7GB\n- SMS: 350SMS (on-net/off-net)\n- Valid: 30 days\n- Extra: 35mins Int\u0027l calls (Zone 1 countries)"}],"planGroupType":"Compatible_Plans"},{"label":"Data Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_data_plans.png","showHeader":true,"plans":[{"id":"16226","hashId":257,"name":"1 Day 60MB","description":"Activate this 1 Day data plan for only K3.00 and get 60MB data. This Plan is valid for 24hrs.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 1 Day 60MB plan","price":"3.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day 60MB","overview":"- Data: 60MB\n- Valid: 24hrs"},{"id":"18205","hashId":256,"name":"1 Day 200MB","description":"Activate this 1 Day data plan for only K7.00 and get 200MB data. This Plan is valid for 24hrs.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 1 Day 200MB plan","price":"7.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day 200MB","overview":"- Data: 200MB\n- Valid: 24hrs"},{"id":"16228","hashId":259,"name":"1 Day 400MB","description":"Activate this 1 Day data plan for only K12.00 and get 400MB data. This Plan is valid for 24hrs.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 1 Day 400MB plan","price":"12.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day 400MB","overview":"- Data: 400MB\n- Valid: 24hrs"},{"id":"16229","hashId":260,"name":"1 Day 1.2GB","description":"Activate this 1 Day data plan for only K25.00 and get 1.2GB data. This Plan is valid for 24hrs.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 1 Day 1.2GB plan","price":"25.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day 1.2GB","overview":"- Data: 1.2GB\n- Valid: 24hrs"},{"id":"18207","hashId":258,"name":"3 Day 300MB","description":"Activate this 3 Day data plan for only K10.00 and get 300MB data. This Plan is valid for 3 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 3 Day 300MB plan","price":"10.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"3 Day 300MB","overview":"- Data: 300MB\n- Valid: 3 days"},{"id":"18208","hashId":259,"name":"3 Day 500MB","description":"Activate this 3 Day data plan for only K16.00 and get 500MB data. This Plan is valid for 3 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 3 Day 500MB plan","price":"16.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"3 Day 500MB","overview":"- Data: 500MB\n- Valid: 3 days"},{"id":"16452","hashId":258,"name":"3 Day 1.2GB","description":"Activate this 3 Day data plan for only K35.00 and get 1.2GB data. This Plan is valid for 3 days.\n Conditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 3 Day 1.2GB plan","price":"35.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"3 Day 1.2GB","overview":"- Data: 1.2GB\n- Valid: 3 days"},{"id":"18209","hashId":260,"name":"7 Day 600MB","description":"Activate this 7 Day data plan for only K18.00 and get 600MB data. This Plan is valid for 7 days.\n Conditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 7 Day 600MB plan","price":"18.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7 Day 600MB","overview":"- Data: 600MB\n- Valid: 7 days"},{"id":"18210","hashId":252,"name":"7 Day 1GB","description":"Activate this 7 Day data plan for only K30.00 and get 1GB data. This Plan is valid for 7 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 7 Day 1GB plan","price":"30.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7 Day 1GB","overview":"- Data: 1GB\n- Valid: 7 days"},{"id":"18211","hashId":253,"name":"30 Day 3GB","description":"Activate this 30 Day data plan for only K85.00 and get 3GB data. This Plan is valid for 30 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 30 Day 1.2GB plan","price":"85.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30 Day 3GB","overview":"- Data: 3GB\n- Valid: 30 days"},{"id":"18212","hashId":254,"name":"30 Day 5GB","description":"Activate this 30 Day data plan for only K130.00 and get 5GB data. This Plan is valid for 30 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 30 Day 5GB plan","price":"130.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30 Day 5GB","overview":"- Data: 5GB\n- Valid: 30 days"},{"id":"18347","hashId":263,"name":"30 Day 20GB","description":"Activate this 30 Day data plan for only K230.00 and get 10GB data. This Plan is valid for 30 days.\nConditions:\n- No Auto Renew for this plan.\n- Bundle rolls over, meaning if you buy this plan, remaining MB will be added to the new 30 Day 20GB plan","price":"230.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"30 Day 20GB","overview":"- Data: 20GB\n- Valid: 30 days"}],"planGroupType":"Compatible_Plans"},{"label":"Hour Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_voice_plans.png","showHeader":true,"plans":[{"id":"16451","hashId":257,"name":"Hour Plan_250MB","description":"This plan offers 500MB of data and cost only K3. The plan is only valid for 60 mins. Plan is only available to MyDigicel App users. No Auto Renew for this plan. Bundle rolls over, meaning if you buy this same plan within 60 mins validity, remaining MB will be added to the new 1 Hour plan PLUS validity extends.","price":"3.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 HOUR 500MB PLAN","overview":"- Validity: 60 mins\n- Data: 500MB for other browsing\n- Only available to MyDigicel App users"}],"planGroupType":"Compatible_Plans"},{"label":"Night Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_voice_plans.png","showHeader":true,"plans":[{"id":"18348","hashId":264,"name":"Night_Hour_Plan_5GB (12am -5am)","description":"Activate this Night Plan for only K8 and get 4GB data to use between 12am-5am.\n Conditions:\n- No Auto Renew for this plan.\n- This data plan can be purchased anytime, but only be used from 12am-5am.","price":"15.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"4GB Night Pass","overview":"- Data: 4GB\n- Valid: 12am-5am"},{"id":"18304","hashId":256,"name":"K2 70Mins Night Plan 11pm-6am","description":"Activate this Voice Night Pass for only K2 and get 70mins for Digicel calls only. You can buy this plan anytime, however can only use from 11pm-6am.\nConditions:\n- No auto-renew for this plan.\n- This voice plan can be purchased anytime, but only be used from 11pm-6am.\n- Voice mins rolls over, meaning if you buy this same pass, remaining mins will be added to the new Voice Night Pass.","price":"2.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"Night Pass","overview":"- Talk: 70mins on-net only (Digicel calls only)\n- Valid: 11pm-6am"}],"planGroupType":"Compatible_Plans"},{"label":"Social Plans","icon":"https://digicelid.digicelgroup.com/selfcarev2/img/planicons/my_plans_voice_plans.png","showHeader":true,"plans":[{"id":"16306","hashId":256,"name":"1 Day Social Plan","description":"Activate this 1 Day Social Pass for only K3.00 and get 24hrs of unlimited access to Facebook, Instagram \u0026amp; Twitter. This plan is valid for 24hrs.\nConditions:\n- Plan has no auto-renew included.\n- Social Pass has zero MB attached, as it is only time-based and will only give unlimited access to the 3 social sites.","price":"3.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"1 Day Social","overview":"- Data: 0MB for other browsing\n- Extra: Access to Facebook, Instagram \u0026 Twitter\n- Valid: 24hrs"},{"id":"16307","hashId":257,"name":"7 Day Social Plan","description":"Activate this 7 Day Social Pass for only K20.00 and get 7 days of unlimited access to Facebook, Instagram \u0026amp; Twitter. This plan is valid for 7 days.\nConditions:\n- Plan has no auto-renew included.\n- Social Pass has zero MB attached, as it is only time-based and will only give unlimited access to the 3 social sites.","price":"20.00 PGK","showPrice":true,"buttonText":"Buy","active":false,"canRenew":false,"canDeactivate":false,"hasAdditionalBundles":false,"hasTransitPlans":false,"provided":false,"canRepurchase":false,"title":"7 Day Social","overview":"- Data: 0MB for other browsing\n- Extra: Access to Facebook, Instagram \u0026 Twitter\n- Valid: 7 days"}],"planGroupType":"Compatible_Plans"}]};
+var planGroups = {};
+$(function(){
+	initMyPlans();
+});
+</script>
+
+		<div id="accountsManagementDiv" class="accountsManagement" style="position: fixed; z-index: 10000;"></div>
+	</div>
+	
+	<!-- footer -->
+	<footer class="digi-footer-margin container">
+		<div class="row">
+			<div class="col s7 m6 l3">
+				<h4 class="digi-dark-grey-text bold">
+					MyDigicel
+				</h4>
+				<div class="digi-dark-grey-text">
+					&copy Copyright Digicel 2018
+				</div>
+				
+				<div>
+					<a class="digi-dark-grey-text" href="http://www.digicelgroup.com/en/legal/my-digicel-terms-and-conditions.html">Terms and Conditions</a>
+				</div>
+			</div>
+			<div class="col s5 m6 l9">
+				
+					<h1 class="right no-margin" id="help_div">
+						<a href="https://support-digicel-pg.zendesk.com" target="_blank" style="display: block;"
+							data-action="zendeskHelp"><img alt="Available Plans"
+							src="/images/help-icon.png"></a>
+					</h1>
+				
+			</div>
+		</div>
+	</footer>
+	
+	<script type="text/javascript">
+		var selectedTab = "availableplans";
+	</script>
+	<script id="msg-box-template" type="text/template7">
+		
+
+
+<div id="msg-box" class="modal digi-modal">
+	{{#if title}}
+		<h5 class="digi-force-center digi-modal digi-modal-title">{{title}}</h5>
+	{{/if}}
+	<div class='modal-content {{contentAlign}}-align digi-topup-modal msg'>
+		{{message}}
+	</div>
+	<div id="msg-box-input-fields">	
+	{{#each inputFields}}
+		<div style="row left-align">
+			{{#if title}}
+				<label>{{title}}</label>
+			{{/if}}
+			<div class="input-field col s12">
+				<input type="text" id="{{id}}" value="{{value}}" class="validate"/>
+			</div>	
+		</div>		
+	{{/each}}
+	</div>	
+	<div class="modal-footer digi-force-center">
+		<button type="button"
+			class="btn digi-btn-rounded-corners digi-grey waves-effect waves-light no-border close upper-case">
+			Close
+		</button>
+		{{#if showActionButton}}
+		<button type="button"
+			class="btn digi-btn-rounded-corners digi-red waves-effect waves-light no-border action upper-case" id="msgBoxActionBtn">{{actionButtonText}}</button>
+		{{/if}}
+	</div>
+</div>
+
+	</script>
+	
+	
+	
+	
+	<script type="text/javascript">
+		function isValidColor(a){if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(a)){return true}else{return false}}function hexToRgbA(b){var d;if(isValidColor(b)){d=b.substring(1).split("");if(d.length==3){d=[d[0],d[0],d[1],d[1],d[2],d[2]]}d="0x"+d.join("");var a={r:(d>>16)&255,g:(d>>8)&255,b:(d)&255,a:1,};return a}throw new Error("Bad Hex")}function alterImage(f,d,g){var b=document.getElementById(g);if(b){var a=b.getContext("2d");var e=hexToRgbA(d);a.drawImage(f,0,0);var h=a.getImageData(0,0,b.width,b.height);for(var c=0;c<h.data.length;c+=4){h.data[c]=e.r;h.data[c+1]=e.g;h.data[c+2]=e.b}a.putImageData(h,0,0)}}function updateTheme(){if(mainThemeColor){$("#digi-logo-colored-id").hide();$("#digi-footer-logo").hide();$("#menuCanvas").show();$("#logoCanvas").show();$("#footerCanvas").show();var b=new Image();b.onload=function(){alterImage(this,mainThemeColor,"menuCanvas")};var a=$("#digi-logo-colored-id");if(a.length){var b=new Image();b.onload=function(){alterImage(this,mainThemeColor,"logoCanvas")};b.src=$("#digi-logo-colored-id").attr("src")}var a=$("#digi-footer-logo");if(a.length){var b=new Image();b.onload=function(){alterImage(this,mainThemeColor,"footerCanvas")};b.src=$("#digi-footer-logo").attr("src")}}else{$("#menuCanvas").hide();$("#logoCanvas").hide();$("#footerCanvas").hide();$("#digi-logo-colored-id").show();$("#digi-footer-logo").show()}}$(function(){$(".sidenav").sidenav({onCloseStart:onSideNavClose})});$(function(){$("select").formSelect()});$(function(){updateTheme()});var _globalPagerOptions={labels:{previous:commonPagerPrevious,next:commonPagerNext}};$(function(){$(".collapsible").collapsible();if(typeof selectedTab==="undefined"){return}var c="#"+selectedTab+"MenuItem";var b=$(c);if(!b.length){return}b.addClass("active");var a=b.parents(".collapsible");if(a.length){a.collapsible("open")}});
+	</script>
+	<script type="text/javascript">
+		var membersToDelete=[];var membersToAdd=[];var addedMsisdnsCounter=0;function addApprovedMember(d){var c=$("#members").children().length;var b=parseInt($("#maxAllowedMembers").val(),10);if(c>=b){showMessageBox({title:getResource("myPlansView.title.plan.updateMembers"),message:'<div class="alert alert-danger">'+getResource("myPlansView.msg.membersListUpdate.exceedLimit")+"</div>",showActionButton:false});return false}var a=getTemplateHtml("add-approved-member-popup",{memberId:++addedMsisdnsCounter,planId:d});showMessageBox({title:getResource("myPlansView.title.addMember"),message:a,showActionButton:true,action:function(){var f=$("#added-msisdn").html();var e=getTemplateHtml("new-member-template",{msisdn:f});$("#members").append($(e));membersToAdd.push({msisdn:f,globalPercentage:Math.round($("#slider-"+addedMsisdnsCounter)[0].noUiSlider.get())});$("#msg-box .btn.close").click()},actionButtonText:getResource("myPlansView.label.save")});setTimeout(function(){$("#msgBoxActionBtn").removeClass("waves-effect waves-light submit").addClass("disabled");var e=$("#slider-"+addedMsisdnsCounter)[0];noUiSlider.create(e,{step:1,connect:"lower",start:[0],range:{min:[0],max:[100]}});e.noUiSlider.on("update",function(f,g){$("#slider-value-"+addedMsisdnsCounter).html(Math.round(f[g])+"%")})},10);setNumberField($(".number-no-scroll-input"))}function setMemberQuota(a,b){var c=$("#msisdn-"+a).val();if(!c){onSetMemberBalanceError();return false}$("#msisdn-holder-"+a).html('<div id="progress" class="valign-wrapper" style="height:100%;"><div class="valign center" style="width:100%;"><img src="images/ajax-loader.gif" /></div></div>');$.ajax(getResource("sharedPlanMemberAdditionFeeUrl"),{method:"POST",data:{planId:b,msisdn:c},success:function(d){if(d.status==getResource("sessionExpiredStatus")){showMessageBox({title:getResource("myPlansView.title.error"),message:'<div class="alert alert-danger">'+getResource("sessionExpiredMessage")+"</div>",showFooter:true,showCloseIcon:false})}else{if(d.status==getResource("managePlanSuccessStatus")){$("#quota-fee-"+a).css("visibility","visible");$("#msisdn-holder-"+a).html('<h5 class="left-align">'+getResource("myPlansView.title.memberMsisdn")+': <span class="bold" id="added-msisdn">'+c+"</span></h5>");if(d.fee){$("#quota-"+a).html('<h5 class="digi-red-text">'+getResource("myPlansView.title.fee")+": "+d.fee+"</h5>")}$("#msgBoxActionBtn").addClass("waves-effect waves-light submit").removeClass("disabled");$("#warning-msg").empty()}else{onSetMemberBalanceError()}}},error:function(d,f,e){onSetMemberBalanceError()}})}function onSetMemberBalanceError(){$("#warning-msg").html(getResource("myPlansView.msg.unableToGetMemberFee.error"))}function removeCurrentMember(a){$("#current-member-"+a).remove();membersToDelete.push({msisdn:a})}function removeNewMember(a){membersToAdd=membersToAdd.filter(function(b){return b.msisdn!=a});$("#new-member-"+a).remove()}function saveMembers(a){if(membersToAdd.length==0&&membersToDelete.length==0){showMessageBox({title:getResource("myPlansView.title.plan.updateMembers"),message:'<div class="alert alert-danger">'+getResource("myPlansView.msg.membersListUpdate.noChange")+"</div>",showActionButton:false});return false}handlePlanButtonAction({uri:getResource("saveSharedPlanMembersUrl"),headers:{Accept:"application/json","Content-Type":"application/json"},data:JSON.stringify({planId:a,membersToAdd:membersToAdd,membersToRemove:membersToDelete}),onSuccess:function(b){var c=b.successMessage||"";membersToAdd=[];membersToDelete=[];if(c){showMessageBox({title:getResource("myPlansView.title.plan.updateMembers"),message:c,showActionButton:false});showMyPlans()}}})}function addSharedPreviousMember(b){var a=getTemplateHtml("shared-member-template",{msisdn:b,isAdd:true});$("#previous-member-"+b).remove();$("#curr-members-div").append(a)}function removeSharedPreviousMember(b){var a=getTemplateHtml("shared-member-template",{msisdn:b,isAdd:false});$("#current-member-"+b).remove();$("#previous-members-div").append(a)}function activatePlan(e){var a=null;if($.type(e)==="string"){a=$("#"+e)}else{a=$(e)}var f={id:a.attr("data-id"),hashId:a.attr("data-hash-id"),availablePlan:(a.attr("data-available-plan")==="true"),lumataPlan:(a.attr("data-lumata-plan")==="true"),isShared:a.attr("data-is-shared")||false,activateMessage:a.attr("data-activate-message"),buttonText:a.attr("data-button-text"),isCarousel:(a.attr("data-is-carousel")==="true"),planIndex:a.attr("data-plan-index")};if(!f.id){return false}if(f.isCarousel&&swiper){swiper.slideTo(f.planIndex)}var c=getResource("activateUrl");if(f.hasOwnProperty("availablePlan")&&f.availablePlan){c=getResource("activateUrl")}if(f.hasOwnProperty("lumataPlan")&&f.lumataPlan){c=getResource("activateLumataUrl")}var b=null;var d=$("#creditCardOption-"+f.hashId).is(":checked");if(d){b=getResource("pshUrl")}var g=false;if(f.isShared){g=$("#addMembersChb").prop("checked")}showMessageBox({title:getPlanById(f.id).title||getResource("myPlansView.title.plan.activate"),message:f.activateMessage,showActionButton:true,contentAlign:"left",action:function(){if(d){window.location=b+f.id}else{onMessageBoxAction({actionUrl:c,dataToSend:{planId:f.id,isShared:f.isShared,addPreviousMembers:g},successCheck:function(h){return h.status==getResource("activateSuccessStatus")},sessionExpiredCheck:function(h){return h.status==getResource("sessionExpiredStatus")},onSuccess:function(){if(f.isCarousel){if(swiper){swiper.removeSlide(f.planIndex)}}else{if(f.isShared){var h=$('[id="activate-'+f.hashId+'"]');if(!h.length){h=$('[id="activate-'+f.id+'"]')}h.hide();showMyPlans()}else{var h=$('[id="activate-'+f.hashId+'"]');if(!h.length){h=$('[id="activate-'+f.id+'"]')}h.hide()}}},successMessage:getResource("myPlansView.msg.activatePlan.success"),errorMessage:function(h){return h.errorMessage||getResource("myPlansView.msg.activatePlan.error")},sessionExpiredMessage:getResource("sessionExpiredMessage")})}},actionButtonText:f.buttonText})}function confirmSharedPlanActivation(b){var a=$(b);var c={id:a.attr("data-id"),name:a.attr("data-name"),availablePlan:(a.attr("data-available-plan")==="true"),isShared:a.attr("data-is-shared")||false,activateMessage:a.attr("data-activate-message"),buttonText:a.attr("data-button-text"),isCarousel:(a.attr("data-is-carousel")==="true"),planIndex:a.attr("data-plan-index")};if(!c.id){return false}if(!c.isShared){return false}handlePlanButtonAction({uri:getResource("confirmSharedPlanActivationUrl"),data:{planId:c.id},onSuccess:function(e){c.members=e.memberMsisdns||[];if(c.members.length==0){c.members=null}if(c.members){var d=getTemplateHtml("confirm-shared-plan-activation-template",c);$("#manage-plan-row").html(d);$("#managePlan").show()}else{activatePlan(b);showMyPlans()}}})}function transitPlan(d){var c=$(d);var b=parseInt(c.attr("data-id"))||0;var a=parseInt(c.attr("data-to"))||0;var f=c.attr("data-popup-template-id");var e={name:c.attr("data-name"),description:formatLineBreaks(c.attr("data-description")),icons:c.attr("data-icons")?c.attr("data-icons").split(","):null,price:c.attr("data-price")};if(b<=0||a<=0){return false}showMessageBox({message:getTemplateHtml(f,e),showActionButton:true,contentAlign:"left",action:function(){onMessageBoxAction({actionUrl:getResource("transitUrl"),dataToSend:{fromPlanId:a,toPlanId:b},successCheck:function(g){return g.status==getResource("activateSuccessStatus")},sessionExpiredCheck:function(g){return g.status==getResource("sessionExpiredStatus")},onSuccess:function(){$("#transit-"+b).hide()},successMessage:getResource("myPlansView.msg.activatePlan.success"),errorMessage:function(g){return g.errorMessage||getResource("myPlansView.msg.activatePlan.error")},sessionExpiredMessage:getResource("sessionExpiredMessage")})},actionButtonText:getResource("myPlansView.label.plan.upgrade")})}function deactivateSubscription(d){var a=$(d);var c=parseInt(a.attr("data-subscription-id"))||0;var b=a.attr("data-deactivate-label");var f=a.attr("data-deactivate-message").printf(a.attr("data-name"));var e=parseInt(a.attr("data-plan-id"),10);if(c<=0){return false}showMessageBox({title:getPlanById(e).title||b,message:f,showActionButton:true,action:function(){onMessageBoxAction({actionUrl:getResource("deactivateUrl"),dataToSend:{subscriptionId:c},successCheck:function(g){return g.status==getResource("deactivateSuccessStatus")},sessionExpiredCheck:function(g){return g.status==getResource("sessionExpiredStatus")},onSuccess:function(){$("#deactivate").hide()},successMessage:getResource("myPlansView.msg.deactivate.success"),errorMessage:function(g){return g.errorMessage||getResource("myPlansView.msg.deactivate.error")},sessionExpiredMessage:getResource("sessionExpiredMessage")})},actionButtonText:b})}function renewSubscription(d){var a=$(d);var c=parseInt(a.attr("data-subscription-id"))||0;var b=a.attr("data-renew-label");var f=a.attr("data-renew-nessage").printf(a.attr("data-name"));var e=parseInt(a.attr("data-plan-id"),10);if(c<=0){return false}showMessageBox({title:getPlanById(e).title||b,message:f,showActionButton:true,action:function(){onMessageBoxAction({actionUrl:getResource("renewUrl"),dataToSend:{subscriptionId:c},successCheck:function(g){return g.status==getResource("renewSuccessStatus")},sessionExpiredCheck:function(g){return g.status==getResource("sessionExpiredStatus")},onSuccess:function(){$("#renew").hide()},successMessage:getResource("myPlansView.msg.renew.success"),errorMessage:function(g){return g.errorMessage||getResource("myPlansView.msg.renew.error")},sessionExpiredMessage:getResource("sessionExpiredMessage")})},actionButtonText:b})}function onErrorManagePlan(b){var a=b||getResource("common.msg.processRequest.error");$("#manage-plan-row .ajax-loader").detach();$("#back-to-myplans-row").hide();$("#plans-row").show();showMessageBox({title:getResource("myPlansView.title.error"),message:'<div class="alert alert-danger">'+a+"</div>",showActionButton:false})}ManagePlans={MyPlans:function(a){managePlan({element:a,onSuccess:function(b){$("#manage-plan-row").html(b);$("#plansRow").hide();$("#managePlan").show();fixPlansContainersHeight()}})},StartPage:function(a){managePlan({element:a,onSuccess:function(b){$("#manage-plan-row").html(b);$("#plans-list-container").hide();$("#show-black-berry-plans-button").hide();$("#managePlans").show();fixPlansContainersHeight()}})},Home:function(a){managePlan({element:a,onSuccess:function(b){$("#manage-plan-row").html(b);$("#plansRow").hide();$("#managePlan").show();fixPlansContainersHeight()}})}};function managePlan(c){var a=$(c.element);var b={id:parseInt(a.attr("data-id"))||0,subscriptionId:parseInt(a.attr("data-subscription-id"))||0,name:a.attr("data-name"),isShared:a.attr("data-is-shared")||false,description:a.attr("data-description"),deactivateLabel:a.attr("data-deactivate-label"),renewLabel:a.attr("data-renew-label"),canRenew:(a.attr("data-can-renew")==="true"),canDeactivate:(a.attr("data-can-deactivate")==="true"),hasTransitPlans:(a.attr("data-has-transit-plans")==="true"),transitPlanMessage:a.attr("data-transit-plan-message"),renewMessage:a.attr("data-renew-message"),deactivateMessage:a.attr("data-deactivate-message"),expiryDate:a.attr("data-expiry-date"),};if(b.id<=0){return false}if(c.onSuccess==null||!$.isFunction(c.onSuccess)){return false}handlePlanButtonAction({uri:getResource("managePlanUrl"),data:{planId:b.id,hasTransitPlans:b.hasTransitPlans},onSuccess:function(d){b.bundles=d.bundles||[];b.transitPlans=d.transitPlans||[];b.hasTransitPlans=b.transitPlans.length!=0;if(b.transitPlans.length==0){b.hasTransitPlans=false}var e=getTemplateHtml("manage-plan-template",b);c.onSuccess(e)}})}function manageSharedPlanMembers(b){var a=$(b);var c={id:parseInt(a.attr("data-id")),name:a.attr("data-name")};if(c.id<=0){return false}handlePlanButtonAction({uri:getResource("manageSharedPlanMembersUrl"),data:{planId:c.id},onSuccess:function(e){c.maxAllowedMembers=e.maxAllowedMembers;c.remainingMembers=e.remainingMembers;c.members=e.members||[];if(c.members.length==0){c.members=null}var d=getTemplateHtml("manage-sharedplan-members-template",c);$("#manage-plan-row").html(d);$("#managePlan").show();$("#members-container").collapsible({accordion:false});$("#members-container .collapsible-header").on("click.collapse",function(){updateCollapisbleIcons(this)});$("#members-container").find(".collapsible-header.active").trigger("click.collapse");$("#members-container").find(".collapsible-header:last").trigger("click.collapse")}})}function handlePlanButtonAction(a){var b={uri:a.uri||null,method:a.method||"POST",data:a.data||{},headers:a.headers||{},onSuccess:a.onSuccess};if(b.uri==null){return false}if(b.onSuccess==null||!$.isFunction(b.onSuccess)){return false}$("#plansRow").hide();$("#manage-plan-row").append('<div class="valign-wrapper" style="height:100%;"><div class="valign center" style="width:100%;"><img src="images/ajax-loader.gif" /></div></div>');$("#managePlan").show();$.ajax(b.uri,{method:b.method,data:b.data,headers:b.headers,success:function(c){if(c.status==getResource("sessionExpiredStatus")){showMessageBox({title:getResource("myPlansView.title.error"),message:'<div class="alert alert-danger">'+getResource("sessionExpiredMessage")+"</div>",showFooter:false,showCloseIcon:false})}else{if(c.status==getResource("managePlanSuccessStatus")){a.onSuccess(c)}else{onErrorManagePlan(c.errorMessage);showMyPlans()}}},error:function(c,e,d){onErrorManagePlan();showMyPlans()},complete:function(){}})}function handleReplyInvitationsButtonAction(a){var b={uri:a.uri||null,method:a.method||"POST",data:a.data||{},headers:a.headers||{},onSuccess:a.onSuccess};if(b.uri==null){return false}if(b.onSuccess==null||!$.isFunction(b.onSuccess)){return false}$.ajax(b.uri,{method:b.method,data:b.data,headers:b.headers,success:function(c){if(c.status==getResource("sessionExpiredStatus")){showMessageBox({title:getResource("myPlansView.title.error"),message:'<div class="alert alert-danger">'+getResource("sessionExpiredMessage")+"</div>",showFooter:false,showCloseIcon:false})}else{if(c.status==getResource("managePlanSuccessStatus")){a.onSuccess(c)}else{onErrorManagePlan(c.errorMessage);showMyPlans()}}},error:function(c,e,d){onErrorManagePlan();showMyPlans()},complete:function(){}})}function showMyPlans(){$("#managePlan").hide();$("#plansRow").show();$("#manage-plan-row").html("")}function replyToInvitation(b,a,d,c){showMessageBox({title:getPlanById(c).title||getResource("myPlansView.title.sharedPlanInvitations"),message:a?d:getResource("myPlansView.msg.planInvitation.decline.ask"),showActionButton:true,contentAlign:"left",action:function(){$("#msg-box .btn.close").click();handlePlanButtonAction({uri:getResource("replyToInvitationUrl"),data:{groupId:b,accept:a},onSuccess:function(e){$("#managePlan").hide();$("#plansRow").show();var f;if(e.status=="SUCCESS"){f=a?getResource("myPlansView.msg.acceptSharedPlanInvitation.success"):getResource("myPlansView.msg.declineSharedPlanInvitation.success");planGroups.forEach(function(g){if(g.planGroupType.toUpperCase()=="SHARED_PLAN_INVITATIONS"){g.plans=g.plans.filter(function(h){return parseInt(h.groupId,10)!=b})}});removePlan(c)}else{f='<div class="alert alert-danger">'+getResource("common.msg.processRequest.error")+"</div>"}showMessageBox({title:getResource("myPlansView.title.sharedPlanInvitations"),message:f,showActionButton:false})}})},actionButtonText:a?getResource("myPlansView.label.acceptInvitation"):getResource("myPlansView.label.rejectInvitation")})}function replyToReceivedGiftPlan(c,a,b){showMessageBox({title:getPlanById(c).title||getResource("myPlansView.title.receivedGiftPlans"),message:a?b:getResource("myPlansView.msg.giftPlan.decline.ask"),showActionButton:true,contentAlign:"left",action:function(){onMessageBoxAction({actionUrl:a?getResource("acceptGiftPlanUrl"):getResource("declineGiftPlanUrl"),dataToSend:{planId:c,accept:a},successCheck:function(d){return d.status==getResource("replyGiftPlanSuccessStatus")},sessionExpiredCheck:function(d){return d.status==getResource("sessionExpiredStatus")},onSuccess:function(){planGroups.forEach(function(d){if(d.planGroupType.toUpperCase()=="RECEIVED_GIFT_PLANS"){d.plans=d.plans.filter(function(e){return parseInt(e.id,10)!=c})}});removePlan(c)},successMessage:a?getResource("myPlansView.msg.giftPlan.accepted"):getResource("myPlansView.msg.giftPlan.declined"),errorMessage:function(d){return d.errorMessage||getResource("common.msg.processRequest.error")},sessionExpiredMessage:getResource("sessionExpiredMessage")})},actionButtonText:a?getResource("myPlansView.label.acceptInvitation"):getResource("myPlansView.label.rejectInvitation")})}function fixPlanRowsHeight(b){var a=b.attr("data-max-height")||55;b.find(".col").each(function(){a=Math.max(a,$(this).children().height())});b.find("div.row.digi-plan-row").css("min-height",a+"px");b.attr("data-max-height",a)}function fixPlansContainersHeight(){$('[data-container-type="plans-category-container"]').each(function(){fixPlanRowsHeight($(this))})}function onErrorPlans(b){var a=b||getResource("common.msg.processRequest.error");showMessageBox({title:getResource("myPlansView.title.error"),message:'<div class="alert alert-danger">'+a+"</div>",showActionButton:false});$("#plans-loading-container").html("");$("#plans-loading-container").hide()}function getGroups(b){var a=[];$.each(b,function(c,d){a.push({label:d.label,id:c});if(plansModel.mobile){a[c].categoryPlansHtml=getHtmlForCategoryPlans(c)}});return{categories:a,mobile:plansModel.mobile}}function getCategoryPlansData(b){if(!planGroups[b]){return{}}var a=[];$.each(planGroups[b].plans,function(c,d){a.push({title:d.title,descriptions:d.overview?d.overview.split("\n"):[],icons:d.iconParamUrls,price:d.showPrice?d.price:"",planId:d.id,buttons:getButtonByGroupTypeAndPlan(planGroups[b].planGroupType,d)})});return{categoryTitle:planGroups[b].label,plansData:a,mobile:plansModel.mobile}}function displayPlansForGroup(a){$("#plans-div").html(getHtmlForCategoryPlans(a))}function getHtmlForCategoryPlans(b){var c=getCategoryPlansData(b);var a=getTemplateHtml("my-plans-plan-template",c);return a}function getButtonByGroupTypeAndPlan(b,f){var e=[];switch((b||"").toUpperCase()){case"CURRENT_PLANS":var g=null;if(f.canRepurchase){g={attrs:['onclick="activatePlan(this);"',"data-id="+formatAttribute(f.id),"data-hash-id="+formatAttribute(f.hashId),"data-activate-message="+formatAttribute(f.description||f.overview),"data-button-text="+formatAttribute(f.buttonText),'data-is-carousel="false"',"id="+formatAttribute("activate-"+f.hashId)],text:f.repurchaseLabel}}case"CURRENT_SHARED_PLANS":if(f.buttonText){var c=['onclick="ManagePlans.MyPlans(this);"',"data-id="+formatAttribute(f.id),"data-subscription-id="+formatAttribute(f.subscriptionId),"data-name="+formatAttribute(f.name),"data-description="+formatAttribute(f.description),"data-deactivate-label="+formatAttribute(f.deactivateLabel),"data-renew-label="+formatAttribute(f.renewLabel),"data-can-renew="+formatAttribute(f.canRenew),"data-can-deactivate="+formatAttribute(f.canDeactivate),"data-has-transit-plans="+formatAttribute(f.hasTransitPlans),"data-transit-plan-message="+formatAttribute(f.transitPlanMessage),"data-renew-message="+formatAttribute(f.renewMessage),"data-deactivate-message="+formatAttribute(f.deactivateMessage),"data-expiry-date="+formatAttribute(f.expiryDate)];if(b.toUpperCase()=="CURRENT_SHARED_PLANS"){c.push('data-is-shared="true"')}e.push({attrs:c.join(" "),text:f.buttonText})}if(g){e.push(g)}break;case"AVAILABLE_PLANS":case"COMPATIBLE_PLANS":if(f.buttonText){var c=['onclick="activatePlan(this);"',"data-id="+formatAttribute(f.id),"data-hash-id="+formatAttribute(f.hashId),'data-available-plan="true"','data-is-carousel="false"',"data-activate-message="+formatAttribute(f.description||f.overview),"data-button-text="+formatAttribute(f.buttonText),"id="+formatAttribute("activate-"+f.hashId)];e.push({attrs:c.join(" "),text:f.buttonText})}break;case"COMPATIBLE_SHARED_PLANS":if(f.buttonText){var c=['onclick="confirmSharedPlanActivation(this);"',"data-id="+formatAttribute(f.id),"data-name="+formatAttribute(f.title),'data-is-shared = "true"','data-is-carousel="false"',"data-activate-message="+formatAttribute(f.description||f.overview),"data-button-text="+formatAttribute(f.buttonText),"id="+formatAttribute("activate-"+f.hashId)];e.push({attrs:c.join(" "),text:f.buttonText})}break;case"SHARED_PLAN_INVITATIONS":var d={attrs:'onclick="replyToInvitation('+[f.groupId,"true","'"+formatLineBreaks(f.description||f.overview)+"'","'"+f.id+"'"].join(",")+');"',text:getResource("acceptPlanInvitationLbl")};var a={attrs:'onclick="replyToInvitation('+[f.groupId,"false","null","'"+f.id+"'"].join(",")+');"',text:getResource("rejectPlanInvitationLbl")};Array.prototype.push.apply(e,[d,a]);break;case"RECEIVED_GIFT_PLANS":var d={attrs:'onclick="replyToReceivedGiftPlan('+[f.id,"true","'"+formatLineBreaks(f.description||f.overview)+"'"].join(",")+');"',text:getResource("acceptPlanInvitationLbl")};var a={attrs:'onclick="replyToReceivedGiftPlan('+f.id+', false);"',text:getResource("rejectPlanInvitationLbl")};Array.prototype.push.apply(e,[d,a]);break}return e}function formatAttribute(a){return'"'+formatLineBreaks(a)+'"'}function setCurrentSelection(a){$(".selected-plan").removeClass("selected-plan").removeClass("digi-red");$(".digi-white-text").removeClass("digi-white-text").addClass("digi-grey-text");$(a).removeClass("digi-grey-text").addClass("digi-white-text");$(a).parent().parent().parent().addClass("selected-plan").addClass("digi-red")}function formatLineBreaks(a){return a?String(a).split("\n").join("<br />"):""}function getPlanById(a){var b={};planGroups.forEach(function(c){c.plans.forEach(function(d){if(d.id==a){b=d;return false}})});return b}function removePlan(a){if(plansModel.mobile){if($("#plan-"+a).siblings().filter('[id^="plan"]').length==0){$("#plan-"+a).html(getTemplateHtml("my-plans-plan-template",{mobile:true,plansData:[]}))}else{$("#plan-"+a).remove()}}else{$(".selected-plan").find("a").click()}}Template7.registerHelper("lengthMax",function(a,b){if(!Array.isArray(a)||isNaN(b)){return 0}return a.length<b?a.length:b});Template7.registerHelper("lengthDiff",function(a,c,b){if(isNaN(b)){return 0}if(!Array.isArray(a)||isNaN(c)){return b}c=parseInt(c,10);b=parseInt(b,10);return c-a.length<b?b:c-a.length});Template7.registerHelper("divideByColLength",function(d,c,e){var b=this;if(!e||!Array.isArray(e.split(","))||isNaN(d)||isNaN(c)){return 1}d=parseInt(d,10);c=parseInt(c,10);e=e.split(",");var a=c;if(e.length>0){var f=1;$.each(e,function(g,h){if(b[h]===true){f++}});a=d/f}return a>c?c:a});function initMyPlans(){planGroups=plansModel.planGroups;var a=getGroups(planGroups);var b=getTemplateHtml("my-plans-category-template",a);$("#categories-div").html(b);if(planGroups&&planGroups.length>0){if(a.mobile){$("#categories-list").collapsible()}else{displayPlansForGroup(0);setCurrentSelection($("#category-0"))}}};
+	</script>
+	<script type="text/javascript">
+		$(function(){loadUserAccounts()});function onSideNavClose(){closeAccountsPopup()}function loadUserAccounts(a){return $.ajax(getResourceMain("retrieveUserAccountsUrl"),{success:function(b){if(b.status==AJAX_RESPONSE_STATUS.SESSION_EXPIRED){showMessageBox({title:getResource("manageAccountView.title.error"),message:'<div class="alert alert-danger">'+getResourceMain("sessionExpiredMessage")+"</div>",showFooter:true,showCloseIcon:false})}else{if(b.status==AJAX_RESPONSE_STATUS.SUCCESS){window.digicelAccounts={digicelAccounts:b.response.digicelAccounts,currentUserMsisdn:getResourceMain("currentUserMsisdn")};if(a){showAccountsSelectPopup()}}else{$.alert(b.errorMessage||getResourceMain("errorLoadingAccountsMsg"),ALERT_STYLE.ERROR);closeAccountsPopup()}}},error:function(b,d,c){$.alert(getResourceMain("errorLoadingAccountsMsg"),ALERT_STYLE.ERROR);closeAccountsPopup()}})}function createUserGsmAccount(){if(!validateCreateAccountForm()){return false}$("#createUserGsmAccountBtn").disable();var a={msisdn:$("#gsmAccountMsisdn").val(),friendlyName:$("#gsmAccountFriendlyName").val(),comments:$("#gsmAccountComments").val()};$.post({url:getResourceMain("createGsmAccountUrl"),data:JSON.stringify(a),contentType:"application/json",dataType:"json",success:function(b){if(b.status==AJAX_RESPONSE_STATUS.SUCCESS){showAccountVerifyPopup(b.response.accountID)}else{if(b.status==AJAX_RESPONSE_STATUS.SESSION_EXPIRED){showMessageBox({title:getResource("manageAccountView.title.error"),message:'<div class="alert alert-danger">'+getResourceMain("sessionExpiredMessage")+"</div>",showFooter:true,showCloseIcon:false})}else{$.alert(b.errorMessage||getResourceMain("errorSavingAccountMsg"),ALERT_STYLE.ERROR);$("#createUserGsmAccountBtn").enable()}}},error:function(b,d,c){$.alert(getResourceMain("errorSavingAccountMsg"),ALERT_STYLE.ERROR);$("#createUserGsmAccountBtn").enable()}})}function verifyGsmAccount(a){if(!validateVerifyCodeForm()){return false}$("#validateUserGsmAccountBtn").disable();$.post({url:getResourceMain("verifyGsmAccountUrl"),data:{accountId:a,code:$("#gsmAccountVerifyCode").val()},success:function(b){if(b.status==AJAX_RESPONSE_STATUS.SUCCESS){$.alert(getResourceMain("accountVerifiedMsg"),ALERT_STYLE.SUCCESS);loadUserAccounts(true)}else{if(b.status==AJAX_RESPONSE_STATUS.SESSION_EXPIRED){showMessageBox({title:getResource("manageAccountView.title.error"),message:'<div class="alert alert-danger">'+getResourceMain("sessionExpiredMessage")+"</div>",showFooter:true,showCloseIcon:false})}else{$.alert(b.errorMessage||getResourceMain("errorVerifyingAccountMsg"),ALERT_STYLE.ERROR);$("#validateUserGsmAccountBtn").enable()}}},error:function(b,d,c){$.alert(getResourceMain("errorVerifyingAccountMsg"),ALERT_STYLE.ERROR);$("#validateUserGsmAccountBtn").enable()}})}function showAccountsSelectPopup(){var a=getTemplateHtml("gsm-accounts-template",$.extend(digicelAccounts,{accountSelectView:true}));$("#accountsManagementDiv").html(a);updatePopupPosition();$("#accountsSelectAddBtn").css("bottom",$("#accountsSelectActionDiv").height()+$("#accountsSelectAddBtn").height()/3)}function showAccountCreatePopup(){var a=getTemplateHtml("gsm-accounts-template",{accountCreateView:true});$("#accountsManagementDiv").html(a);updatePopupPosition();$.event.trigger({type:"msisdninputadd"})}function showAccountVerifyPopup(b){var a=getTemplateHtml("gsm-accounts-template",{accountVerifyView:true,accountId:b});$("#accountsManagementDiv").html(a);updatePopupPosition()}function closeAccountsPopup(){$("#accountSelectDiv").remove();$("#accountCreateDiv").remove();$("#accountVerifyDiv").remove()}function updatePopupPosition(){if(isMobile){$("#accountsManagementDiv").offset({top:($("#accountSelect").position().top+$("#accountSelect").height()),left:0})}else{$("#accountsManagementDiv").offset({top:($("#accountSelect").position().top+$("#accountSelect").height()),left:$("#accountSelect").position().left})}}function switchUserAccount(b){var a=$(String.format('<form action = "{0}" method="post"><input type="hidden" name="accountId" value = {1} /></form>',getResourceMain("switchUserAccountUrl"),b));$("body").append(a);a.submit()}function validateCreateAccountForm(){var a=true;$("#gsmAccountMsisdn").validate(function(c,b){if(c==""){return b(false,"empty")}if(c.length!=this.attr("maxlength")){return b(false,"length")}return b(true)}).error(function(b){this.showErrors(b);a=false});$("#gsmAccountFriendlyName").validate(function(c,b){return b(true)},function(b){return $.trim(b)});$("#gsmAccountComments").validate(function(c,b){return b(true)},function(b){return $.trim(b)});return a}function validateVerifyCodeForm(){var a=true;$("#gsmAccountVerifyCode").validate(function(c,b){if(c==""){return b(false,"empty")}if(c.length!=this.attr("maxlength")){return b(false,"invalid")}return b(true)}).error(function(b){this.showErrors(b);a=false});return a};
+	</script>
+</body>
+</html>
