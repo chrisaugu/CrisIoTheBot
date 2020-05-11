@@ -1,0 +1,7 @@
+node_modules
+.idea
+.env
+Cris.ioBot.sublime-project
+Cris.ioBot.sublime-workspace
+lib/Cris
+views/physics
