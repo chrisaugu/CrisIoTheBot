@@ -8,9 +8,34 @@
   },
   "scripts": {
     "start": "nodemon ./server/server.js",
+    "server": "nodemon ./server/server.js",
+    "client": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "twit": "latest",
+    "dotenv": "latest",
+    "ip": "latest",
+    "http": "latest",
+    "express": "latest",
+    "body-parser": "^1.19.0",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-facebook-token": "^3.3.0",
+    "passport-google-oauth": "^2.0.0",
+    "fs-extra": "^9.0.0",
+    "path": "^0.12.7",
+    "cors": "^2.8.5",
+    "node-restful": "^0.2.6",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "extend": "^3.0.2",
+    "isomorphic-fetch": "^2.2.1",
+    "mongoose": "latest",
+    "readline": "latest",
+    "googleapis": "^50.0.0",
+    "mqtt": "^4.0.1",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "electron": "^5.0.7"
