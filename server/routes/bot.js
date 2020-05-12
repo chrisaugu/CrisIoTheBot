@@ -469,7 +469,7 @@ module.exports = function(app) {
                         if (err) {
                             console.log("Database error: " + err);
                         } else {
-                            message = {
+                            var message = {
                                 "attachment": {
                                     "type": "template",
                                     "payload": {
@@ -536,7 +536,7 @@ module.exports = function(app) {
                         if (err) {
                             console.log("Database error: " + err);
                         } else {
-                            message = {
+                            var message = {
                                 "attachment": {
                                     "type": "template",
                                     "payload": {

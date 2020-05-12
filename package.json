@@ -35,7 +35,8 @@
     "readline": "latest",
     "googleapis": "^50.0.0",
     "mqtt": "^4.0.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "apiai": "latest"
   },
   "devDependencies": {
     "electron": "^5.0.7"

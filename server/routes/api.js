@@ -29,7 +29,7 @@ require('./pomsox-api')(router);
 require('./oauth')(router);
 require("./facebook-api")(router);
 require('./instagram-api')(router);
-require('./twitter-api')(router);
+// require('./twitter-api')(router);
 require('./weather-api')(router);
 // require('./imdb-api')(router);
 // require('./google-api')(router);
