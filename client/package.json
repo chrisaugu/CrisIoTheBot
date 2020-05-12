@@ -13,7 +13,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "electron": "^5.0.7"
+    "electron": "^8.2.5"
   },
   "skills": [
     "Translator Translate languages",
@@ -37,6 +37,11 @@
     "Server",
     "BYOB",
     "Bot",
-    "AI"
+    "AI",
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
   ]
 }
