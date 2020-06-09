@@ -64,8 +64,10 @@ module.exports = function(app) {
      * Facebook Webhook Endpoints
      * All callbacks for Messenger will be POST-ed here
      */
+    // Handle Post Request to receive messages.
     app.post("/webhook", function(req, res) {
         console.log("Received webhook");
+        console.log('Webhook messaging step.')
 
         let body = req.body;
 
@@ -113,6 +115,25 @@ module.exports = function(app) {
             // Returns a '404 Not Found' if event is not from a page subscription
             res.sendStatus(404);
         }
+    
+    // var chat_data = req.body;
+    // // Make sure this is a page subscription
+    // if (chat_data.object == 'page') {
+    //     // Iterate over each entry
+    //     chat_data.entry.forEach(function (page_body) {
+    //         // Iterate over each message
+    //         page_body.messaging.forEach(function (message_obj) {
+    //             console.log(message_obj)
+    //             if (message_obj.message) {
+    //                 getMessage(message_obj);
+    //                 sendMessage(message_obj.sender.id,"Greeting from Aitude!")
+    //             }
+    //         });
+    //     });
+
+    //     // Indicate all went well.
+    //     res.sendStatus(200);
+    // }
     });
 
     // route for login form
@@ -649,6 +670,39 @@ module.exports = function(app) {
         console.log(users);
         return images[type][user_type_count];
     };
+
+// Get Message
+function getMessage(message_obj) {
+    var message = message_obj.message.text;
+    console.log(message)
+}
+
+// Send Message
+function sendMessage(recipient_id, message) {
+    var messageData = {
+        recipient: {
+            id: recipient_id
+        },
+        message: {
+            text: message
+        }
+    }
+    request({
+        uri: 'https://graph.facebook.com/v3.2/me/messages',
+        qs: {
+            access_token: FB_ACCESS_TOKEN
+        },
+        method: 'POST',
+        json: messageData
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log("Messeage sent successsfully.");
+        } else {
+            console.log("Message failed - " + response.statusMessage);
+        }
+    });
+}
 
     return app;
 };

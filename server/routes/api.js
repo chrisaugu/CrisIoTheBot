@@ -142,7 +142,7 @@ router.get("/", function(req, res, next) {
 			res.writeHead(200, {"Content-Type": "text/html"});
 			res.write('<b>hello, world!</b>');
 			res.write("<br>This is one deadend endpoint. try something like /api/v1/weather");
-			res.write("Deployed at " + dt.myDateTime());
+			res.write("Deployed at " + new Date());
 			break;
 		default:
 			// the fallback is text/plain, so no need to specify it above

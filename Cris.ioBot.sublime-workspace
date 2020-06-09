@@ -532,7 +532,7 @@
 			"file": "server/app.js",
 			"settings":
 			{
-				"buffer_size": 2982,
+				"buffer_size": 3636,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -541,7 +541,24 @@
 			"file": "server/routes/api.js",
 			"settings":
 			{
-				"buffer_size": 5890,
+				"buffer_size": 5888,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "server/routes/pomsox-api.js",
+			"settings":
+			{
+				"buffer_size": 2941,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "server/routes/twitter-api.js",
+			"settings":
+			{
+				"buffer_size": 1301,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -550,36 +567,9 @@
 			"file": "server/routes/bot.js",
 			"settings":
 			{
-				"buffer_size": 24740,
+				"buffer_size": 26315,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/assets/js/html5.pingpong.js",
-			"settings":
-			{
-				"buffer_size": 244,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "server/config/dbLayer/mongodb.js",
-			"settings":
-			{
-				"buffer_size": 917,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "server/.env",
-			"settings":
-			{
-				"buffer_size": 1220,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
 			}
 		},
 		{
@@ -666,18 +656,28 @@
 	"expanded_folders":
 	[
 		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot",
-		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client",
-		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/assets",
-		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/assets/js"
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/routes"
 	],
 	"file_history":
 	[
-		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/package.json",
-		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/package.json",
 		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/lib/database.js",
-		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/routes/iot.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/config/index.js",
 		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/config/dbLayer/mongodb.js",
+		"/C/Users/Christian AUGUSTYN/Downloads/lab2pointer.c",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/package.json",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/package.json",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/index.html",
 		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/README.md",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/README (2).md",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/main.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/main (2).js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/index (2).html",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/.gitignore",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/assets/js/html5.pingpong.js",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/.env",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/package.json",
+		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/routes/iot.js",
 		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/client/sample_file.txt",
 		"/C/xampp/htdocs/christianaugustyn/public/js/application.js",
 		"/C/Users/Christian AUGUSTYN/WebstormProjects/crisbot/server/routes/witai.js",
@@ -788,18 +788,7 @@
 		"/C/RailsInstaller/Git/git-bash.bat",
 		"/C/Users/Wantok/WebstormProjects/crisbot/bot.js",
 		"/C/xampp/htdocs/christianaugustyn/public/libs/md5.js",
-		"/C/xampp/htdocs/christianaugustyn/public/libs/md52.js",
-		"/C/Users/Wantok/.WebStorm2019.1/config/javascript/nodejs/8.9.4/core-modules/crypto.js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/app (2).js",
-		"/C/Users/Wantok/WebstormProjects/crisbot/client/js/DNSDetectiveClient.js",
-		"/C/Users/Wantok/WebstormProjects/hacking-cracking-tools/download.sh",
-		"/C/Users/Wantok/WebstormProjects/crisbot/routes/availablePlans2.html",
-		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common.min.js",
-		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common-plans.min.js",
-		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common3.js",
-		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common2.js",
-		"/C/Users/Wantok/WebstormProjects/chat/public/javascripts/common.js",
-		"/C/xampp/htdocs/ZykNet/README.md"
+		"/C/xampp/htdocs/christianaugustyn/public/libs/md52.js"
 	],
 	"find":
 	{
@@ -810,6 +799,7 @@
 		"height": 178.0,
 		"where_history":
 		[
+			"C:\\Users\\Wantok\\WebstormProjects\\crisbot",
 			"C:\\Users\\Wantok\\WebstormProjects\\crisbot\\node_modules"
 		]
 	},
@@ -818,6 +808,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"sendMessage",
+			"getMessage",
+			"factorial",
+			"factorials",
+			"fibonacci",
+			"Cris.ioBot",
 			"sendTextMessage",
 			"imageTemplate",
 			"processText",
@@ -939,13 +935,7 @@
 			"\t\t",
 			"\t",
 			"Freq",
-			"javascripts",
-			"request",
-			"    ",
-			"photos.limit(2).order(reverse_chronological){link, comments.limit(2).order(reverse_chronological)}",
-			"callSendMessage",
-			"tion receivedMessage",
-			"receivedMessage"
+			"javascripts"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -963,7 +953,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -979,8 +969,8 @@
 						"selection":
 						[
 							[
-								369,
-								369
+								0,
+								0
 							]
 						],
 						"settings":
@@ -1000,15 +990,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2982,
+						"buffer_size": 3636,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2900,
-								2909
+								0,
+								3636
 							]
 						],
 						"settings":
@@ -1018,10 +1008,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 623.0,
+						"translation.y": 244.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1030,15 +1020,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5890,
+						"buffer_size": 5888,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1968,
-								1968
+								5691,
+								5691
 							]
 						],
 						"settings":
@@ -1047,7 +1037,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 340.0,
+						"translation.y": 2558.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -1055,26 +1045,25 @@
 				},
 				{
 					"buffer": 3,
-					"file": "server/routes/bot.js",
-					"semi_transient": false,
+					"file": "server/routes/pomsox-api.js",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 24740,
+						"buffer_size": 2941,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23493,
-								23493
+								1856,
+								2924
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1085,19 +1074,19 @@
 				},
 				{
 					"buffer": 4,
-					"file": "client/assets/js/html5.pingpong.js",
+					"file": "server/routes/twitter-api.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 244,
+						"buffer_size": 1301,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								180,
-								180
+								91,
+								91
 							]
 						],
 						"settings":
@@ -1107,71 +1096,43 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "server/routes/bot.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26315,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4082,
+								4082
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 798.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "server/config/dbLayer/mongodb.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 917,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								677,
-								677
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
 					"buffer": 6,
-					"file": "server/.env",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1220,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								318,
-								302
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
 					"semi_transient": false,
 					"settings":
 					{
@@ -1197,7 +1158,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1278,7 +1239,7 @@
 		[
 			[
 				"",
-				"C:\\Users\\Christian AUGUSTYN\\WebstormProjects\\epsilonpi\\epsilonpi.sublime-project"
+				"C:\\Users\\Christian AUGUSTYN\\WebstormProjects\\stuckwanyah\\StuckWanYahProject.sublime-project"
 			]
 		],
 		"width": 380.0
